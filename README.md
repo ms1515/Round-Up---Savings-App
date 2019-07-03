@@ -1,6 +1,8 @@
 # RoundUpFeature_StarlingBank
 ### Round Up Feature for Starling Bank
 
+![alt text](https://user-images.githubusercontent.com/30627907/60586306-b5f01000-9d89-11e9-96c1-d498f8121e8d.jpeg)
+
 For  a  customer,  take  all  the  transactions  in  a  given  week  and  round  them  up  to  the nearest  pound.  For  example  with  spending  of  £4.35,  £5.20  and  £0.87,  the  round-up would  be £1.58.  This  amount  should  then  be  transferred  into  a savings  goal,  helping  the customer  save  for  future  adventures. 
 
 ## App breakdown
