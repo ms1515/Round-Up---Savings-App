@@ -13,7 +13,7 @@ Launch Screen -> Login Controller
 * Login button calls the API service to authenticate the access token and fetch user account details.
 * Another textfield below the login Button to display any error resulting from authentication  
 
-![alt text](https://user-images.githubusercontent.com/30627907/60475971-a8dffd80-9c71-11e9-9175-5a486668bc52.jpeg)
+![alt text](https://user-images.githubusercontent.com/30627907/60585546-e5058200-9d87-11e9-8ea2-9d1f0cf43ae2.jpeg)
 
 ### 2. Transactions Feed Controller 
 
@@ -22,9 +22,24 @@ Launch Screen -> Login Controller
 * The transactions are displayed in the cells below the header, with their amounts and possible round Up.
 * “Save to Goals” button -> to the Goals View Controller, with the round up amount allocated to a file variable.
 
+![alt text](https://user-images.githubusercontent.com/30627907/60585579-f189da80-9d87-11e9-8323-b491adb154f5.jpeg)
+
 ### 3. Goals View Controller
 
 * Uses the Goals API to fetch any existing Goals: fetch the UID of every goal, from it fetch the value and associated assets like image etc. This information is used to populate the the collectionView Cells for each goal.
 * The Goals API can then be used to update the relevant goal account with the added money. 
-* An extra cell allows you to create a new goal with a pop over, that calls the API to create a new Goal and saves it, and displays some notification text in both success and failure case, and reloads the collectionView.
+* An extra cell allows you to create a new goal, by presenting a new View Controller: Create New Goal Controller
+
+![alt text](https://user-images.githubusercontent.com/30627907/60585636-12eac680-9d88-11e9-9216-8c5d55cf7ede.jpeg)
+
+### 4. Create New Goal Controller
+
+* Uses UIImage Picker to allow selection of goal photo from Photo Library. Also the title and target amount (£) of the goal can be specified.
+* Calls the API to create a new Goal and saves it, and displays  error text in both failure case, and reloads the collectionView.
+
+![alt text](https://user-images.githubusercontent.com/30627907/60585648-1b430180-9d88-11e9-8126-fa0c664112d8.jpeg)
+
+
+
+
 
