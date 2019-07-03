@@ -127,10 +127,11 @@ class NewGoalController: UIViewController {
         setupViews()
         setupNotificationObservers()
         setupTapGesture()
+        print("\(String(describing: uid))")
         
     }
     
-    // Mark:- Setting Up Views
+    // MARK:- Setting Up Views
     func setupViews() {
         view.addSubview(selectPhotoButton)
         view.addSubview(goalNameTextField)
@@ -154,14 +155,14 @@ class NewGoalController: UIViewController {
        
     }
     
-    //Mark:- @objc methods
+    //MARK:- @objc methods
     @objc func handleSelectPhoto() {
         let imagePickerController = UIImagePickerController()
         imagePickerController.delegate = self
         present(imagePickerController, animated: true)
     }
     
-
+    
     @objc func handleTextInputChange() {
         
         let isFormValid =  goalNameTextField.text?.count ?? 0 > 0 && goalTargetTextField.text?.count ?? 0 > 0 &&  ((selectPhotoButton.imageView?.image ?? nil) != nil)
@@ -178,6 +179,7 @@ class NewGoalController: UIViewController {
         dismiss(animated: true, completion: nil)
     }
     
+    // MARK:- Creating a New Goal Method
     @objc func handleCreateGoal() {
         
         print("attempting to create Goal")
@@ -194,16 +196,21 @@ class NewGoalController: UIViewController {
         print(targetAmountInUnits)
         //print(base64photo)
         Service.shared.createNewSavingGoal(uid: uid, newGoal: newGoal) { [weak self] (resp, err) in
+            
+            if let err = err {
+                print("Error: \(err)")
+            }
            
             guard let resp = resp  else {return}
             
-            guard (200 ... 299) ~= resp.statusCode else {                    // check for http errors
-                print("statusCode should be 2xx, but is \(resp.statusCode)")
+            guard (200 ... 299) ~= resp.statusCode else {  // check for http errors
+                print("HTTP Error: Status Code \(resp.statusCode)")
                 
                 DispatchQueue.main.async {
-                    self?.errorLabel.text = "Error Code: \(resp.statusCode)"
+                    self?.errorLabel.text = "Error: Status Code \(resp.statusCode)"
                 }
                 return }
+            print("successfully created goal")
         }
     }
     

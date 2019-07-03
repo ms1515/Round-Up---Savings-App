@@ -7,7 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		847C45F922CB895200C13921 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 847C45F822CB895200C13921 /* Extensions.swift */; };
+		8479183822CD157C007CCFC0 /* JSONExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8479183722CD157C007CCFC0 /* JSONExtension.swift */; };
+		847C45F922CB895200C13921 /* UIKitExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 847C45F822CB895200C13921 /* UIKitExtensions.swift */; };
 		848ABC0522C999E800DAFEC3 /* Goals.swift in Sources */ = {isa = PBXBuildFile; fileRef = 848ABC0422C999E700DAFEC3 /* Goals.swift */; };
 		848ABC0722CA062000DAFEC3 /* Date.swift in Sources */ = {isa = PBXBuildFile; fileRef = 848ABC0622CA062000DAFEC3 /* Date.swift */; };
 		848ABC0922CA235B00DAFEC3 /* NewGoalCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 848ABC0822CA235B00DAFEC3 /* NewGoalCell.swift */; };
@@ -51,7 +52,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		847C45F822CB895200C13921 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
+		8479183722CD157C007CCFC0 /* JSONExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JSONExtension.swift; sourceTree = "<group>"; };
+		847C45F822CB895200C13921 /* UIKitExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIKitExtensions.swift; sourceTree = "<group>"; };
 		848ABC0422C999E700DAFEC3 /* Goals.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Goals.swift; sourceTree = "<group>"; };
 		848ABC0622CA062000DAFEC3 /* Date.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Date.swift; sourceTree = "<group>"; };
 		848ABC0822CA235B00DAFEC3 /* NewGoalCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewGoalCell.swift; sourceTree = "<group>"; };
@@ -224,7 +226,8 @@
 				849D11EA22C5568E00B638A9 /* CustomTextField.swift */,
 				848ABC0622CA062000DAFEC3 /* Date.swift */,
 				848ABC0C22CA2D2200DAFEC3 /* PublicFunctions.swift */,
-				847C45F822CB895200C13921 /* Extensions.swift */,
+				847C45F822CB895200C13921 /* UIKitExtensions.swift */,
+				8479183722CD157C007CCFC0 /* JSONExtension.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -393,6 +396,7 @@
 				84C4A7CF22C95727008BB587 /* Transactions.swift in Sources */,
 				849D11E922C53A3500B638A9 /* TransactionFeedController.swift in Sources */,
 				849D11B322C52FF200B638A9 /* LoginController.swift in Sources */,
+				8479183822CD157C007CCFC0 /* JSONExtension.swift in Sources */,
 				849D11EE22C5632D00B638A9 /* Service.swift in Sources */,
 				848ABC0D22CA2D2200DAFEC3 /* PublicFunctions.swift in Sources */,
 				848ABC0922CA235B00DAFEC3 /* NewGoalCell.swift in Sources */,
@@ -401,7 +405,7 @@
 				849D11B122C52FF200B638A9 /* AppDelegate.swift in Sources */,
 				848ABC0B22CA286700DAFEC3 /* GoalCell.swift in Sources */,
 				849D11E722C539FE00B638A9 /* UIView+Layout.swift in Sources */,
-				847C45F922CB895200C13921 /* Extensions.swift in Sources */,
+				847C45F922CB895200C13921 /* UIKitExtensions.swift in Sources */,
 				849D11EB22C5568E00B638A9 /* CustomTextField.swift in Sources */,
 				849D11FB22C7810300B638A9 /* GoalsController.swift in Sources */,
 				849D11F922C5856300B638A9 /* TransactionCell.swift in Sources */,

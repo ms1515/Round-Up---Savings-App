@@ -98,6 +98,7 @@ class TransactionFeedController: UITableViewController, HeaderViewDelegate {
                 return
             }
             
+            print("Successfully retrieved user")
             self?.userDetails = retreivedAccount?.accounts ?? []
             
             guard let uid = self?.userDetails[0].accountUid else {return}
@@ -117,6 +118,7 @@ class TransactionFeedController: UITableViewController, HeaderViewDelegate {
                 return
             }
             
+            print("Successfully retrieved user account details")
             self?.accountDetails = accountDetails
             
         }
@@ -131,7 +133,7 @@ class TransactionFeedController: UITableViewController, HeaderViewDelegate {
                 print("Failed to retrieve user account Balance: ",err )
                 return
             }
-            
+            print("Successfully retrieved user account Balance")
             self?.accountBalance = balance?.availableToSpend
             
             
@@ -146,6 +148,7 @@ class TransactionFeedController: UITableViewController, HeaderViewDelegate {
                 print(err)
             }
             
+            print("Successfully retrieved user transactions")
             self?.feedItems = transactions?.feedItems ?? []
             self?.calculateRoundUp()
             
@@ -177,7 +180,7 @@ class TransactionFeedController: UITableViewController, HeaderViewDelegate {
         }
     }
         let formatted = String(format: "£%0.2f", roundUpSum)
-        print(formatted)
+        print("Total Round Up Amount: ",formatted)
         self.roundUpAmount = roundUpSum
     }
     

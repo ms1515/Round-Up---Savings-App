@@ -14,8 +14,8 @@ class Service {
     
     let authKey = "Authorisation Token"
     let refreshKey = "Refresh Token"
-    var authToken = "Bearer WJXLEi3p4pE4YW92baKuUkV5X3DnU2nGTy2V9YJGwibtcgdeNa7laktPV9xu32rD"
-    var refreshToken = "ineYpoN5nPDNpC43rNeA1CqMvvJwaPhdezdptlNovPn2i3Jd2LC9MWGSu2td031o"
+    var authToken = "Bearer Jws4KhgqDS3D7dKS9ibiy797xLZ30B2jmarDBcKWSZJVjFnZU8orrf2GV63UCtCA"
+    var refreshToken = "f2zCvcvne7pfVFMTuBSxpN1Sx7eazt9kbMqoBi3J0AGGB91AyhyEK6ycjsLAuZgz"
     let clientId = "c2fa026e-2ea0-4736-bced-3afc839aaaa4"
     
     init() {
@@ -56,8 +56,9 @@ class Service {
         
         do {
             request.httpBody = try JSONSerialization.data(withJSONObject: parameters, options: .prettyPrinted) // pass dictionary to nsdata object and set it as request body
+            print("successfully encoded to json")
         } catch let error {
-            print(error.localizedDescription)
+            print("Failed to encode Parameters to Json",error.localizedDescription)
         }
         
         
@@ -141,9 +142,9 @@ class Service {
                 
                 do {
                     
-                    let userAccount = try JSONDecoder().decode(T.self, from: data)
-                    print(userAccount)
-                    completion(userAccount, nil)
+                    let object = try JSONDecoder().decode(T.self, from: data)
+                    //print(userAccount)
+                    completion(object, nil)
                     
                 } catch let jsonErr {
                     print("failed to decode json data",jsonErr)
@@ -174,10 +175,10 @@ class Service {
         request.setValue("0", forHTTPHeaderField: "Content-Length")
         
         do {
-            let httpBody = try fundTransfer.toJson()
+            let httpBody = try JSONEncoder().encode(fundTransfer)
             request.httpBody = httpBody
         } catch {
-            print(error)
+            print("failed to encode object to json: ",error)
         }
         
        generalAPICall(request: request, completion: completion)
@@ -194,16 +195,16 @@ class Service {
         guard let url = URL(string: urlString) else {return}
    
         var request = URLRequest(url: url)
-        request.httpMethod = "PUT"
+        request.httpMethod = "Put"
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
         request.setValue(authToken, forHTTPHeaderField: "Authorization")
         request.setValue("0", forHTTPHeaderField: "Content-Length")
         
         do {
-            let httpBody = try newGoal.toJson()
+            let httpBody = try JSONEncoder().encode(newGoal)
             request.httpBody = httpBody
         } catch {
-            print(error)
+            print("failed to encode object to json: ",error)
         }
         
         generalAPICall(request: request, completion: completion)
@@ -218,13 +219,13 @@ class Service {
         session.dataTask(with: request) { (data, resp, err) in
             
             if let err = err {
-                print(err)
+                //print(err)
                 completion(nil,err)
                 return
             }
             
             if let resp = resp as? HTTPURLResponse {
-                print(resp)
+                //print(resp)
                 completion(resp,nil)
             }
             

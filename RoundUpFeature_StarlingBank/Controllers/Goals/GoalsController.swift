@@ -60,8 +60,29 @@ class GoalsController: UICollectionViewController, UICollectionViewDelegateFlowL
         setupCollectionView()
         setupGradientLayer()
         setupViews()
+        setupRefreshControl()
         fetchGoals()
+       
 
+    }
+    
+    //MARK:- Setting up Refresh Control
+    
+    func setupRefreshControl() {
+        
+        let refreshControl = UIRefreshControl()
+        refreshControl.tintColor = .white
+        refreshControl.addTarget(self, action: #selector(handleRefresh), for: .valueChanged)
+        collectionView?.refreshControl = refreshControl
+    }
+    
+    @objc func handleRefresh() {
+        print("handling refresh")
+        self.savingGoalsList.removeAll()
+        self.savingGoalsPhoto.removeAll()
+        fetchGoals()
+        collectionView?.reloadData()
+        collectionView?.refreshControl?.endRefreshing()
     }
 
     //MARK:- Setting up CollectionView and Views Layout
@@ -187,16 +208,19 @@ class GoalsController: UICollectionViewController, UICollectionViewDelegateFlowL
             }
             
             let retreivedGoals = goals?.savingsGoalList ?? []
-            self?.savingGoalsList = retreivedGoals
             
             if retreivedGoals.count > 0 {
-                
-           self?.fetchPhotoForEachGoal()
-                
-            }
-            
+            print("Successfully retrieved user saving goals", retreivedGoals)
+            self?.savingGoalsList = retreivedGoals
+            self?.fetchPhotoForEachGoal()
             DispatchQueue.main.async {
-                self?.collectionView.reloadData()
+                    self?.collectionView.reloadData()
+            }
+                
+            } else {
+                
+            print("User has no saving goals")
+                
             }
         }
     }
@@ -215,6 +239,7 @@ class GoalsController: UICollectionViewController, UICollectionViewDelegateFlowL
                 
                 guard let goalPhoto = base64Photo else {return}
                 self?.savingGoalsPhoto.append(goalPhoto)
+                
                 
             })
             
@@ -237,8 +262,15 @@ class GoalsController: UICollectionViewController, UICollectionViewDelegateFlowL
                 print("Failed to transfer funds: ",err)
                 return
             }
+            guard let resp = resp  else {return}
+            
+            guard (200 ... 299) ~= resp.statusCode else {                    // check for http errors
+                print("Error: Status Code \(resp.statusCode)")
+                return
         }
+            print("Successfully transferred Funds")
         
+    }
     }
 
     // MARK:- Setting up Background View

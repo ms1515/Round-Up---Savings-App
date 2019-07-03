@@ -27,6 +27,7 @@ struct FundTransfer: Codable {
 }
 
 struct NewGoal: Codable {
+    
     let name, currency: String
     let target: Target
     let base64EncodedPhoto: String

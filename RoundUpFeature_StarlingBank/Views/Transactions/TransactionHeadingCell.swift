@@ -30,7 +30,7 @@ class TransactionHeadingCell: UITableViewCell {
     
     lazy var roundUpAmountLabel: UILabel = {
         let label = UILabel()
-        label.text = "Round Up"
+        label.text = "Round Up (£)"
         label.font = UIFont.boldSystemFont(ofSize: 14)
         label.textColor = .white
         label.textAlignment = .center

@@ -8,21 +8,6 @@
 
 import UIKit
 
-enum MyError: Error {
-    case encodingError
-}
-
-extension Encodable {
-    
-    func toJson() throws -> Data? {
-        let objectData = try JSONEncoder().encode(self)
-        let jsonObject = try JSONSerialization.jsonObject(with: objectData, options: [])
-        guard let json = jsonObject as? Data else {throw MyError.encodingError}
-        
-        return json
-    }
-}
-
 extension UILabel {
     convenience init(text: String, font: UIFont, numberOfLines: Int = 1) {
         self.init(frame: .zero)

@@ -12,11 +12,9 @@ public func convertImageToBase64(image: UIImage) -> String {
     let imageData = image.jpegData(compressionQuality: 0.4) ?? Data()
     return imageData.base64EncodedString(options: Data.Base64EncodingOptions.lineLength64Characters)
 }
-
-
     
- public func convertBase64ToImage(imageString: String) -> UIImage {
-     let imageData = Data(base64Encoded: imageString,
+public func convertBase64ToImage(imageString: String) -> UIImage {
+    let imageData = Data(base64Encoded: imageString,
                          options: Data.Base64DecodingOptions.ignoreUnknownCharacters) ?? Data()
     return UIImage(data: imageData) ?? UIImage()
 }

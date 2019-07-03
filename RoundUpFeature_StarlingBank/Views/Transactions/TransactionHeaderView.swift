@@ -52,7 +52,8 @@ class TransactionHeaderView: UITableViewHeaderFooterView {
         didSet{
             guard let amount = roundUpAmount else {return}
             let formattedRoundUpAmount = String(format: "%0.2f", amount)
-            let attributedText = NSMutableAttributedString(string: "£\(formattedRoundUpAmount)", attributes: [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 20, weight: .heavy), NSAttributedString.Key.foregroundColor: UIColor.black])
+            let attributedText = NSMutableAttributedString(string: "Total Round Up: ", attributes: [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 20, weight: .bold), NSAttributedString.Key.foregroundColor: UIColor.black])
+            attributedText.append(NSAttributedString(string: "£\(formattedRoundUpAmount)", attributes: [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 20, weight: .heavy), NSAttributedString.Key.foregroundColor: UIColor.white]))
             roundUpAmountLabel.attributedText = attributedText
         }
     }
@@ -117,8 +118,8 @@ class TransactionHeaderView: UITableViewHeaderFooterView {
     
     let roundUpAmountLabel: UILabel = {
         let label = UILabel()
-        label.text = "£00.00"
-        label.font = UIFont.systemFont(ofSize: 20, weight: .heavy)
+        label.text = "Total Round Up: "
+        label.font = UIFont.systemFont(ofSize: 20, weight: .bold)
         label.textAlignment = .center
         return label
     }()
@@ -158,7 +159,7 @@ class TransactionHeaderView: UITableViewHeaderFooterView {
         addSubview(roundUpAmountLabel)
         addSubview(saveToGoalButton)
         
-       logoutButton.anchor(top: topAnchor, leading: leadingAnchor, bottom: nil, trailing: nil, padding: .init(top: 25, left: 25, bottom: 0, right: 0), size: .init(width: 40, height: 40))
+       logoutButton.anchor(top: topAnchor, leading: nil, bottom: nil, trailing: trailingAnchor, padding: .init(top: 25, left: 0, bottom: 0, right: 25), size: .init(width: 40, height: 40))
         
        logoImageView.anchor(top: nil, leading: nil, bottom: overallStackView.topAnchor, trailing: nil, padding: .init(top: 0, left: 0, bottom: 8, right: 0), size: .init(width: frame.width, height: 60))
         logoImageView.centerXInSuperview()

@@ -62,6 +62,11 @@ class LoginController: UIViewController {
         return tf
     }()
     
+    let activityIndicator: UIActivityIndicatorView = {
+        let ai = UIActivityIndicatorView(style: .whiteLarge)
+        return ai
+    }()
+    
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -80,6 +85,7 @@ class LoginController: UIViewController {
         view.addSubview(refreshTokenButton)
         view.addSubview(loginButton)
         view.addSubview(errorLabel)
+        view.addSubview(activityIndicator)
         
         logoImageView.anchor(top: view.topAnchor, leading: view.leadingAnchor, bottom: nil, trailing: view.trailingAnchor, padding: .init(top: 150, left: 20, bottom: 0, right: 20), size: .init(width: view.frame.width - 40, height: 120))
         appTitleLabel.anchor(top: logoImageView.bottomAnchor, leading: view.leadingAnchor, bottom: nil, trailing: view.trailingAnchor, padding: .init(top: 16, left: 20, bottom: 0, right: 20))
@@ -90,9 +96,14 @@ class LoginController: UIViewController {
         
         errorLabel.anchor(top: loginButton.bottomAnchor, leading: view.leadingAnchor, bottom: nil, trailing: view.trailingAnchor, padding: .init(top: 16, left: 20, bottom: 0, right: 20))
         
+        activityIndicator.anchor(top: errorLabel.bottomAnchor, leading: nil, bottom: nil, trailing: nil)
+        activityIndicator.centerXInSuperview()
+        
     }
     
     @objc func handleRefreshToken() {
+        activityIndicator.startAnimating()
+        refreshTokenButton.isEnabled = false
         Service.shared.refreshToken { [weak self] (resp, err) in
             
             guard let resp = resp  else {return}
@@ -102,6 +113,8 @@ class LoginController: UIViewController {
             
             DispatchQueue.main.async {
                 self?.errorLabel.text = "Status Code: \(resp.statusCode)"
+                self?.activityIndicator.stopAnimating()
+                self?.refreshTokenButton.isEnabled = true
             }
                 return }
             
@@ -109,13 +122,16 @@ class LoginController: UIViewController {
     }
 
     @objc fileprivate func login() {
-        
+        activityIndicator.startAnimating()
+        loginButton.isEnabled = false
         Service.shared.fetchUserAccount(completion: { [weak self] (retreivedAccount, err)  in
             
             if let err = err {
                 print("Failed to Login User: ",err)
                 DispatchQueue.main.async {
                 self?.errorLabel.text = "Failed to Login User: \(err)"
+                self?.activityIndicator.stopAnimating()
+                self?.loginButton.isEnabled = true
                 }
                 return
             }
@@ -124,6 +140,8 @@ class LoginController: UIViewController {
             
             DispatchQueue.main.async {
                 self?.errorLabel.text = ""
+                self?.activityIndicator.stopAnimating()
+                self?.loginButton.isEnabled = true
                 let transactionFeedController = TransactionFeedController(style: .grouped)
                 self?.navigationController?.pushViewController(transactionFeedController, animated: true)
             }
