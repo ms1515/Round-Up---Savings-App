@@ -11,9 +11,9 @@ For  a  customer,  take  all  the  transactions  in  a  given  week  and  round 
 
 Launch Screen -> Login Controller
 
-* Textfield containing the access Token, which can be changed as it expires.
-* Login button calls the API service to authenticate the access token and fetch user account details.
-* Another textfield below the login Button to display any error resulting from authentication  
+* LOGIN button calls the API service to authenticate the access token and fetch user account details.
+* REFRESH TOKEN button refreshes the access token (currently experiencing error: Status Code 400) 
+* Another textfield below the REFRESH and LOGIN Button to display any error resulting from refreshing and logging in.
 
 ![alt text](https://user-images.githubusercontent.com/30627907/60585546-e5058200-9d87-11e9-8ea2-9d1f0cf43ae2.jpeg)
 
@@ -28,8 +28,8 @@ Launch Screen -> Login Controller
 
 ### 3. Goals View Controller
 
-* Uses the Goals API to fetch any existing Goals: fetch the UID of every goal, from it fetch the value and associated assets like image etc. This information is used to populate the the collectionView Cells for each goal.
-* The Goals API can then be used to update the relevant goal account with the added money. 
+* Uses the Goals API to fetch any existing Goals; by fetching the UID of every goal, and associated assets like image etc. This information is used to populate the the collectionView Cells for each goal.
+* TRANSFER FUNDS button transfers the round up amount to the selected goal. (currently experiencing error: Status Code 400)
 * An extra cell allows you to create a new goal, by presenting a new View Controller: Create New Goal Controller
 
 ![alt text](https://user-images.githubusercontent.com/30627907/60585636-12eac680-9d88-11e9-9216-8c5d55cf7ede.jpeg)
