@@ -97,11 +97,11 @@ class LoginController: UIViewController {
             
             guard let resp = resp  else {return}
             
-            guard (200 ... 299) ~= resp.statusCode else {                    // check for http errors
-                print("statusCode should be 2xx, but is \(resp.statusCode)")
+            guard (200 ... 299) ~= resp.statusCode else { // check for http errors
+                print("Status Code: \(resp.statusCode)")
             
             DispatchQueue.main.async {
-                self?.errorLabel.text = "Error Code: \(resp.statusCode)"
+                self?.errorLabel.text = "Status Code: \(resp.statusCode)"
             }
                 return }
             
