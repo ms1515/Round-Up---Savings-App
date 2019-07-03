@@ -2,7 +2,7 @@
 //  AppDelegate.swift
 //  RoundUpFeature_StarlingBank
 //
-//  Created by Sheerien Manzoor on 6/27/19.
+//  Created by Muhammad Shahrukh on 6/27/19.
 //  Copyright © 2019 Muhammad Shahrukh. All rights reserved.
 //
 
@@ -16,6 +16,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
+        window?.rootViewController = UINavigationController(rootViewController: LoginController())
         return true
     }
 

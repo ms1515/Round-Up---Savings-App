@@ -2,7 +2,7 @@
 //  RoundUpFeature_StarlingBankTests.swift
 //  RoundUpFeature_StarlingBankTests
 //
-//  Created by Sheerien Manzoor on 6/27/19.
+//  Created by Muhammad Shahrukh on 6/27/19.
 //  Copyright © 2019 Muhammad Shahrukh. All rights reserved.
 //
 
