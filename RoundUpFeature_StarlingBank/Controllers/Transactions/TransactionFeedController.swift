@@ -21,11 +21,28 @@ class TransactionFeedController: UITableViewController, HeaderViewDelegate {
         
         setupTableView()
         setupGradientLayer()
-    
+        setupRefreshControl()
+        
         DispatchQueue.global(qos: .background).async { [weak self] in
             self?.fetchCurrentUser()
         }
         
+    }
+    
+    func setupRefreshControl() {
+        
+        let refreshControl = UIRefreshControl()
+        refreshControl.tintColor = .white
+        refreshControl.addTarget(self, action: #selector(handleRefresh), for: .valueChanged)
+        tableView?.refreshControl = refreshControl
+    }
+    
+    @objc func handleRefresh() {
+        print("handling refresh")
+        
+        fetchCurrentUser()
+        tableView?.reloadData()
+        tableView?.refreshControl?.endRefreshing()
     }
     
     // MARK:- Setup TableView
@@ -91,7 +108,7 @@ class TransactionFeedController: UITableViewController, HeaderViewDelegate {
     
     // MARK: - Retreive Current User Account and Transactions
     fileprivate func fetchCurrentUser() {
-        Service.shared.fetchUserAccount(completion: { [weak self] (retreivedAccount, err)  in
+        Service.shared.fetchUserAccount(completion: { [weak self] (retreivedAccount, resp, err)  in
             
             if let err = err {
                 print("Failed to fetch User: ",err)
@@ -112,7 +129,7 @@ class TransactionFeedController: UITableViewController, HeaderViewDelegate {
     
     func fetchCurrentUserAccountDetails(uid: String?) {
         guard let uid = uid else {return}
-        Service.shared.fetchUserAccountDetails(uid: uid) { [weak self] (accountDetails, err) in
+        Service.shared.fetchUserAccountDetails(uid: uid) { [weak self] (accountDetails, resp, err) in
             if let err = err {
                 print("Failed to fetch account details: ",err)
                 return
@@ -127,7 +144,7 @@ class TransactionFeedController: UITableViewController, HeaderViewDelegate {
     
     func fetchCurrentUserBalance(uid: String?) {
         guard let uid = uid else {return}
-        Service.shared.fetchUserAccountBalance(uid: uid) { [weak self] (balance, err) in
+        Service.shared.fetchUserAccountBalance(uid: uid) { [weak self] (balance, resp, err) in
             
             if let err = err {
                 print("Failed to retrieve user account Balance: ",err )
@@ -142,7 +159,7 @@ class TransactionFeedController: UITableViewController, HeaderViewDelegate {
     
     func fetchCurrentUserTransactions(uid: String?) {
         guard let uid = uid else {return}
-        Service.shared.fetchUserTransactions(uid: uid) { [weak self] (transactions, err) in
+        Service.shared.fetchUserTransactions(uid: uid) { [weak self] (transactions, resp, err) in
             
             if let err = err {
                 print(err)
@@ -169,11 +186,11 @@ class TransactionFeedController: UITableViewController, HeaderViewDelegate {
                 
                 switch paymentDirection {
                 case "OUT":
-                    let transactionAmountInUnits = feedItem.amount.minorUnits 
-                    let transactionAmountInPounds = convertMinorUnitsIntToPoundsCGFloat(number: transactionAmountInUnits)
-                    let roundUpAmount = CGFloat(Int(transactionAmountInPounds)) + 1 - transactionAmountInPounds
-                    roundUpSum += roundUpAmount
                     
+                    let transactionAmountInUnits = feedItem.amount.minorUnits
+                    let roundUpAmount = calculateRoundUpForTransaction(number: transactionAmountInUnits)
+                    roundUpSum += roundUpAmount
+            
                 default:
                     return
             }
@@ -186,12 +203,16 @@ class TransactionFeedController: UITableViewController, HeaderViewDelegate {
     
     //MARK:- HeaderView Delegate Methods
     func didTapSaveToGoals() {
-        print("did Tap Round Up")
+        
+        print("Saving Round Up Amount to Goals")
         let goalsController = GoalsController()
-        let uid = self.userDetails[0].accountUid 
+        if self.userDetails.count > 0 {
+        let uid = self.userDetails[0].accountUid
         goalsController.uid = uid
         goalsController.roundUpAmount = self.roundUpAmount
         navigationController?.pushViewController(goalsController, animated: true)
+        }
+        
     }
     
     func didTapLogout() {

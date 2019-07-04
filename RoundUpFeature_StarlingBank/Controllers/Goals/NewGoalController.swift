@@ -23,10 +23,14 @@ extension NewGoalController: UIImagePickerControllerDelegate, UINavigationContro
     
 }
 
-class NewGoalController: UIViewController {
+class NewGoalController: UIViewController, NotificationCardViewDelegate {
     
     var uid: String?
     
+    // MARK:- Card View Bottom Constraint
+    var notificationCardViewBottomConstraint: NSLayoutConstraint?
+    
+    //MARK:- Buttons and Controls
     let selectPhotoButton: UIButton = {
         let button = UIButton(type: .system)
         let attributedText = NSMutableAttributedString(string: "Choose Photo", attributes: [NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: 32), NSAttributedString.Key.foregroundColor: UIColor.black])
@@ -120,6 +124,13 @@ class NewGoalController: UIViewController {
         return button
     }()
     
+    lazy var notificationCardView: NotificationCardView = {
+        let view = NotificationCardView()
+        view.delegate = self
+        view.layer.cornerRadius = 16
+        return view
+    }()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
     
@@ -127,12 +138,13 @@ class NewGoalController: UIViewController {
         setupViews()
         setupNotificationObservers()
         setupTapGesture()
-        print("\(String(describing: uid))")
+        setupNotificationCardViewConstraints()
         
     }
     
     // MARK:- Setting Up Views
     func setupViews() {
+        
         view.addSubview(selectPhotoButton)
         view.addSubview(goalNameTextField)
         view.addSubview(horizantalStackView)
@@ -157,9 +169,11 @@ class NewGoalController: UIViewController {
     
     //MARK:- @objc methods
     @objc func handleSelectPhoto() {
+        
         let imagePickerController = UIImagePickerController()
         imagePickerController.delegate = self
         present(imagePickerController, animated: true)
+        
     }
     
     
@@ -176,13 +190,15 @@ class NewGoalController: UIViewController {
     
     
     @objc func handleDismiss() {
-        dismiss(animated: true, completion: nil)
+        dismissNewGoalsController()
     }
     
     // MARK:- Creating a New Goal Method
     @objc func handleCreateGoal() {
         
         print("attempting to create Goal")
+        createGoalButton.isEnabled = false
+        
         guard let uid = self.uid else {return}
         guard let name = goalNameTextField.text else {return}
         guard let targetAmount = goalTargetTextField.text else {return}
@@ -193,7 +209,7 @@ class NewGoalController: UIViewController {
         
         let newGoal = NewGoal(name: name, currency: "GBP", target: target, base64EncodedPhoto: base64photo)
         
-        print(targetAmountInUnits)
+        print("target amount in minor units:", targetAmountInUnits)
         //print(base64photo)
         Service.shared.createNewSavingGoal(uid: uid, newGoal: newGoal) { [weak self] (resp, err) in
             
@@ -208,10 +224,56 @@ class NewGoalController: UIViewController {
                 
                 DispatchQueue.main.async {
                     self?.errorLabel.text = "Error: Status Code \(resp.statusCode)"
+                    self?.createGoalButton.isEnabled = true
                 }
                 return }
-            print("successfully created goal")
+            
+            print("successfully created goal. Status Code",resp.statusCode)
+            
+            DispatchQueue.main.async {
+               self?.showNotificationView()
+               self?.createGoalButton.isEnabled = true
+            }
         }
+    }
+    
+    // MARK:- Notification View Methods
+    func setupNotificationCardViewConstraints() {
+        
+        view.addSubview(notificationCardView)
+        notificationCardView.translatesAutoresizingMaskIntoConstraints = false
+        notificationCardView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20).isActive = true
+        notificationCardView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20).isActive = true
+        notificationCardView.heightAnchor.constraint(equalToConstant: 150).isActive = true
+        
+        notificationCardViewBottomConstraint = notificationCardView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: 600)
+        notificationCardViewBottomConstraint?.isActive = true
+        
+    }
+    
+    
+    func showNotificationView() {
+        
+        notificationCardView.textLabel.text = "SuccessFully created new Goal"
+        notificationCardViewBottomConstraint?.constant = -20 - view.safeAreaInsets.bottom
+        UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 0.75, initialSpringVelocity: 1, options: .curveEaseOut, animations: {
+            self.view.layoutIfNeeded()
+        }, completion: nil)
+        
+    }
+    
+    func dismissNotificationView() {
+        
+        notificationCardViewBottomConstraint?.constant = 600
+        UIView.animate(withDuration: 0.75, delay: 0, usingSpringWithDamping: 0.75, initialSpringVelocity: 1, options: .curveEaseOut, animations: {
+            self.view.layoutIfNeeded()
+        }, completion: nil)
+        dismissNewGoalsController()
+        
+    }
+    
+    func dismissNewGoalsController() {
+        dismiss(animated: true, completion: nil)
     }
     
     // MARK:- Setting up Background View

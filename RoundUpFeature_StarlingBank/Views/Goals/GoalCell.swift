@@ -13,25 +13,33 @@ class BaseGoalCell: UICollectionViewCell {
     lazy var goalImageView: UIImageView = {
         let iv = UIImageView()
         iv.backgroundColor = .lightGray
+        iv.image = UIImage(named: "goalPhoto.jpg")
+        iv.alpha = 0.7
         iv.contentMode = .scaleAspectFill
         iv.layer.cornerRadius = 10
         iv.clipsToBounds = true
-        //iv.isUserInteractionEnabled = true
         return iv
     }()
     
     lazy var goalNameLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont.boldSystemFont(ofSize: 14)
+        label.font = UIFont.boldSystemFont(ofSize: 20)
         label.textColor = .black
         label.textAlignment = .center
+        return label
+    }()
+    
+    lazy var goalPercentageLabel: UILabel = {
+        let label = UILabel()
+        label.font = UIFont.boldSystemFont(ofSize: 14)
+        label.textColor = .black
         return label
     }()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
         
-        backgroundColor = .white
+        backgroundColor = .clear
         layer.cornerRadius = 10
         isUserInteractionEnabled = true
         
@@ -47,8 +55,11 @@ class BaseGoalCell: UICollectionViewCell {
         
         addSubview(goalImageView)
         addSubview(goalNameLabel)
+        addSubview(goalPercentageLabel)
+        
         goalImageView.fillSuperview()
-        goalNameLabel.anchor(top: nil, leading: leadingAnchor, bottom: bottomAnchor, trailing: trailingAnchor, padding: .init(top: 0, left: 0, bottom: 10, right: 0))
+        goalNameLabel.anchor(top: topAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor, padding: .init(top: 10, left: 0, bottom: 0, right: 0))
+        goalPercentageLabel.anchor(top: nil, leading: nil, bottom: bottomAnchor, trailing: trailingAnchor, padding: .init(top: 0, left: 0, bottom: 10, right: 10))
         
     }
     
@@ -60,13 +71,18 @@ class BaseGoalCell: UICollectionViewCell {
 class GoalCell: BaseGoalCell {
     
     var savingGoal: SavingsGoalList? {
+        
         didSet{
             
             guard let goalName = savingGoal?.name else {return}
             //guard let goalImage = savingGoal?.base64EncodedPhoto else {return}
+            guard let goalPercentage = savingGoal?.savedPercentage else {return}
             
-            goalNameLabel.text = goalName
+            goalNameLabel.text = goalName.uppercased()
+            goalNameLabel.textColor = .white
+            goalPercentageLabel.text = "\(goalPercentage)%"
             //goalImageView.image = convertBase64ToImage(imageString: goalImage)
+            
         }
     }
     

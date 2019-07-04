@@ -16,6 +16,7 @@ class TransactionCell: UITableViewCell {
             guard let transactionSource = feedItem?.source else {return}
             guard let spendingCategory = feedItem?.spendingCategory else {return}
             guard let transactionAmountInUnits = feedItem?.amount.minorUnits else {return}
+            
             let transactionAmountInPounds = convertMinorUnitsIntToPoundsCGFloat(number: transactionAmountInUnits)
             let formattedTransactionAmountInPounds = String(format: "%0.2f", transactionAmountInPounds)
             
@@ -28,11 +29,14 @@ class TransactionCell: UITableViewCell {
             case "OUT":
                  let amountAttributedText = NSMutableAttributedString(string: "-£\(formattedTransactionAmountInPounds)", attributes: [NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: 14), NSAttributedString.Key.foregroundColor: UIColor.black])
                 transactionAmountLabel.attributedText = amountAttributedText
-                let roundUpAmount = CGFloat(Int(transactionAmountInPounds)) + 1 - transactionAmountInPounds
+                 
+                 let roundUpAmount = calculateRoundUpForTransaction(number: transactionAmountInUnits)
                 let formatted = String(format: "£%0.2f", roundUpAmount)
                 roundUpAmountLabel.text = formatted
+                 //}
+                
             default:
-                 let amountAttributedText = NSMutableAttributedString(string: "£\(transactionAmountInPounds)", attributes: [NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: 14), NSAttributedString.Key.foregroundColor: UIColor.black])
+                 let amountAttributedText = NSMutableAttributedString(string: "£\(formattedTransactionAmountInPounds)", attributes: [NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: 14), NSAttributedString.Key.foregroundColor: UIColor.black])
                 transactionAmountLabel.attributedText = amountAttributedText
                 roundUpAmountLabel.text = "£ - "
             }

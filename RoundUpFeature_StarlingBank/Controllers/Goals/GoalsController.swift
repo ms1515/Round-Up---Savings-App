@@ -8,9 +8,9 @@
 
 import UIKit
 
-class GoalsController: UICollectionViewController, UICollectionViewDelegateFlowLayout {
+class GoalsController: UICollectionViewController, UICollectionViewDelegateFlowLayout, NotificationCardViewDelegate {
     
-    //Mark:- Initialising Cell Ids
+    // MARK:- Initialising Cell Ids
     fileprivate let headerCellId = "headerId"
     fileprivate let goalCellId = "cellId"
     fileprivate let newGoalCellId = "newCellId"
@@ -20,7 +20,11 @@ class GoalsController: UICollectionViewController, UICollectionViewDelegateFlowL
     var uid: String?
     var roundUpAmount: CGFloat?
     
-    lazy var dismissButton: UIButton = {
+    // MARK:- Card View Bottom Constraint
+    var notificationCardViewBottomConstraint: NSLayoutConstraint?
+    
+    // MARK:- Buttons and Controls
+    lazy var cancelButton: UIButton = {
         let button = UIButton(type: .system)
         button.setTitle("CANCEL", for: .normal)
         button.setTitleColor(#colorLiteral(red: 0.1921568662, green: 0.007843137719, blue: 0.09019608051, alpha: 1), for: .normal)
@@ -35,7 +39,7 @@ class GoalsController: UICollectionViewController, UICollectionViewDelegateFlowL
     
     
     @objc func handleDismiss() {
-        navigationController?.popViewController(animated: true)
+        dismissGoalsController()
     }
 
     lazy var transferFundsButton: UIButton = {
@@ -53,7 +57,14 @@ class GoalsController: UICollectionViewController, UICollectionViewDelegateFlowL
         return button
     }()
     
-
+    lazy var notificationCardView: NotificationCardView = {
+       let view = NotificationCardView()
+        view.delegate = self
+        view.layer.cornerRadius = 16
+        return view
+    }()
+    
+    // MARK:- View did Load
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -62,12 +73,11 @@ class GoalsController: UICollectionViewController, UICollectionViewDelegateFlowL
         setupViews()
         setupRefreshControl()
         fetchGoals()
-       
-
+        
+        setupNotificationCardViewConstraints()
     }
     
     //MARK:- Setting up Refresh Control
-    
     func setupRefreshControl() {
         
         let refreshControl = UIRefreshControl()
@@ -86,9 +96,7 @@ class GoalsController: UICollectionViewController, UICollectionViewDelegateFlowL
     }
 
     //MARK:- Setting up CollectionView and Views Layout
-    
     func setupCollectionView() {
-        
         
         if let layout = collectionView.collectionViewLayout as? UICollectionViewFlowLayout {
             layout.minimumLineSpacing = 20
@@ -102,12 +110,12 @@ class GoalsController: UICollectionViewController, UICollectionViewDelegateFlowL
     }
     
     func setupViews() {
-        view.addSubview(dismissButton)
+        view.addSubview(cancelButton)
         view.addSubview(transferFundsButton)
         
-        dismissButton.anchor(top: nil, leading: view.leadingAnchor, bottom: view.safeAreaLayoutGuide.bottomAnchor, trailing: nil, padding: .init(top: 0, left: 30, bottom: 30, right: 0), size: .init(width: 0, height: 50))
+        cancelButton.anchor(top: nil, leading: view.leadingAnchor, bottom: view.safeAreaLayoutGuide.bottomAnchor, trailing: nil, padding: .init(top: 0, left: 30, bottom: 30, right: 0), size: .init(width: 0, height: 50))
         
-        transferFundsButton.anchor(top: nil, leading: dismissButton.trailingAnchor, bottom: view.safeAreaLayoutGuide.bottomAnchor, trailing: view.trailingAnchor, padding: .init(top: 0, left: 10, bottom: 30, right: 30), size: .init(width: 0, height: 50))
+        transferFundsButton.anchor(top: nil, leading: cancelButton.trailingAnchor, bottom: view.safeAreaLayoutGuide.bottomAnchor, trailing: view.trailingAnchor, padding: .init(top: 0, left: 10, bottom: 30, right: 30), size: .init(width: 0, height: 50))
     }
     
     // MARK:- UICollectionViewDataSource
@@ -136,6 +144,7 @@ class GoalsController: UICollectionViewController, UICollectionViewDelegateFlowL
             return cell
         default:
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: goalCellId, for: indexPath) as! GoalCell
+            cell.savingGoal = savingGoalsList[indexPath.item]
             return cell
         }
     }
@@ -143,6 +152,19 @@ class GoalsController: UICollectionViewController, UICollectionViewDelegateFlowL
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let width = ( view.frame.width - 3 * contentInset )/2
         return CGSize(width: width, height: width)
+    }
+    
+    // CollectionView Cells Animations
+    override func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+        
+        let rotationTransform = CATransform3DTranslate(CATransform3DIdentity, 0, 20, 0)
+        cell.layer.transform = rotationTransform
+        cell.alpha = 0
+        UIView.animate(withDuration: 0.5) {
+            cell.layer.transform = CATransform3DIdentity
+            cell.alpha = 1.0
+            
+        }
     }
     
     var selectedGoal: IndexPath?
@@ -200,7 +222,7 @@ class GoalsController: UICollectionViewController, UICollectionViewDelegateFlowL
     func fetchGoals() {
         
         guard let uid = self.uid else {return}
-        Service.shared.fetchUserSavingGoals(uid: uid) { [weak self] (goals, err) in
+        Service.shared.fetchUserSavingGoals(uid: uid) { [weak self] (goals, resp, err) in
             
             if let err = err {
                 print("Failed to fetch Goals: ", err)
@@ -229,9 +251,11 @@ class GoalsController: UICollectionViewController, UICollectionViewDelegateFlowL
         
         self.savingGoalsList.forEach({ (goal) in
             
+            guard let uid = self.uid else {return}
             let goalUid = goal.savingsGoalUid
+
             
-            Service.shared.fetchSavingGoalsPhoto(uid: uid, goalUid: goalUid, completion: { [weak self] (base64Photo, err) in
+             Service.shared.fetchSavingGoalsPhoto(uid: uid, goalUid: goalUid, completion: { [weak self] (base64Photo, resp, err) in
                 if let err = err {
                     print("failed to fetch goal photo: ",err)
                     return
@@ -241,7 +265,7 @@ class GoalsController: UICollectionViewController, UICollectionViewDelegateFlowL
                 self?.savingGoalsPhoto.append(goalPhoto)
                 
                 
-            })
+            }) 
             
         })
     }
@@ -257,20 +281,76 @@ class GoalsController: UICollectionViewController, UICollectionViewDelegateFlowL
         guard let selectedGoal = self.selectedGoal?.item else {return}
         let goalUid = self.savingGoalsList[selectedGoal].savingsGoalUid
         
-        Service.shared.transferFundstoSavingGoal(uid: uid, goalUid: goalUid, amount: transferAmount) {(resp, err) in
+        Service.shared.transferFundstoSavingGoal(uid: uid, goalUid: goalUid, amount: transferAmount) { [weak self] (resp, err) in
+            
             if let err = err {
                 print("Failed to transfer funds: ",err)
                 return
             }
+            
             guard let resp = resp  else {return}
             
-            guard (200 ... 299) ~= resp.statusCode else {                    // check for http errors
-                print("Error: Status Code \(resp.statusCode)")
+            guard (200 ... 299) ~= resp.statusCode else { // check for http errors
+                
+                let errorCode = String(resp.statusCode)
+                print("Error: Status Code \(errorCode)")
+                DispatchQueue.main.async {
+                    self?.showNotificationView(success: false, error: errorCode)
+                }
                 return
         }
-            print("Successfully transferred Funds")
+            
+            print("Successfully transferred Funds: ", roundUpAmountInUnits)
+            DispatchQueue.main.async {
+                self?.showNotificationView(success: true, error: nil)
+            }
         
     }
+    }
+    
+    // MARK:- Notification View Methods
+    func setupNotificationCardViewConstraints() {
+        
+        view.addSubview(notificationCardView)
+        notificationCardView.translatesAutoresizingMaskIntoConstraints = false
+        notificationCardView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20).isActive = true
+        notificationCardView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20).isActive = true
+        notificationCardView.heightAnchor.constraint(equalToConstant: 150).isActive = true
+        
+        notificationCardViewBottomConstraint = notificationCardView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: 600)
+        notificationCardViewBottomConstraint?.isActive = true
+        
+    }
+    
+    
+    func showNotificationView(success: Bool, error: String?) {
+        
+        switch success {
+        case true:
+            notificationCardView.textLabel.text = "SuccessFully transferred the Funds"
+        case false:
+            notificationCardView.textLabel.text = "Unable to transfer the Funds. Status Code \(String(describing: error))"
+        }
+        
+        notificationCardViewBottomConstraint?.constant = -20 - view.safeAreaInsets.bottom
+        UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 0.75, initialSpringVelocity: 1, options: .curveEaseOut, animations: {
+            self.view.layoutIfNeeded()
+        }, completion: nil)
+        
+    }
+    
+    func dismissNotificationView() {
+        
+        notificationCardViewBottomConstraint?.constant = 600
+        UIView.animate(withDuration: 0.75, delay: 0, usingSpringWithDamping: 0.75, initialSpringVelocity: 1, options: .curveEaseOut, animations: {
+            self.view.layoutIfNeeded()
+        }, completion: nil)
+        dismissGoalsController()
+        
+    }
+    
+    func dismissGoalsController() {
+        navigationController?.popViewController(animated: true)
     }
 
     // MARK:- Setting up Background View
@@ -302,7 +382,6 @@ class GoalsController: UICollectionViewController, UICollectionViewDelegateFlowL
    init() {
         super.init(collectionViewLayout: UICollectionViewFlowLayout())
     }
-
     
     override var prefersStatusBarHidden: Bool {
             return true

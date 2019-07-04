@@ -102,29 +102,33 @@ class LoginController: UIViewController {
     }
     
     @objc func handleRefreshToken() {
+        
         activityIndicator.startAnimating()
         refreshTokenButton.isEnabled = false
         Service.shared.refreshToken { [weak self] (resp, err) in
             
-            guard let resp = resp  else {return}
+            guard let resp = resp else {return}
             
             guard (200 ... 299) ~= resp.statusCode else { // check for http errors
                 print("Status Code: \(resp.statusCode)")
-            
+               
             DispatchQueue.main.async {
                 self?.errorLabel.text = "Status Code: \(resp.statusCode)"
                 self?.activityIndicator.stopAnimating()
                 self?.refreshTokenButton.isEnabled = true
             }
+                
                 return }
             
+           print(resp)
         }
     }
 
     @objc fileprivate func login() {
+        
         activityIndicator.startAnimating()
         loginButton.isEnabled = false
-        Service.shared.fetchUserAccount(completion: { [weak self] (retreivedAccount, err)  in
+        Service.shared.fetchUserAccount(completion: { [weak self] (retreivedAccount, resp, err)  in
             
             if let err = err {
                 print("Failed to Login User: ",err)
@@ -145,7 +149,7 @@ class LoginController: UIViewController {
                 let transactionFeedController = TransactionFeedController(style: .grouped)
                 self?.navigationController?.pushViewController(transactionFeedController, animated: true)
             }
-    })
+      })
     }
     
     fileprivate func setupTapGesture() {

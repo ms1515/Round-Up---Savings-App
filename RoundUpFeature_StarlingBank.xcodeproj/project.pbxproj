@@ -8,12 +8,14 @@
 
 /* Begin PBXBuildFile section */
 		8479183822CD157C007CCFC0 /* JSONExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8479183722CD157C007CCFC0 /* JSONExtension.swift */; };
+		8479183B22CD50A4007CCFC0 /* RoundUpFunctions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8479183A22CD50A4007CCFC0 /* RoundUpFunctions.swift */; };
+		8479183D22CD6C9B007CCFC0 /* NotificationCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8479183C22CD6C9B007CCFC0 /* NotificationCardView.swift */; };
 		847C45F922CB895200C13921 /* UIKitExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 847C45F822CB895200C13921 /* UIKitExtensions.swift */; };
 		848ABC0522C999E800DAFEC3 /* Goals.swift in Sources */ = {isa = PBXBuildFile; fileRef = 848ABC0422C999E700DAFEC3 /* Goals.swift */; };
 		848ABC0722CA062000DAFEC3 /* Date.swift in Sources */ = {isa = PBXBuildFile; fileRef = 848ABC0622CA062000DAFEC3 /* Date.swift */; };
 		848ABC0922CA235B00DAFEC3 /* NewGoalCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 848ABC0822CA235B00DAFEC3 /* NewGoalCell.swift */; };
 		848ABC0B22CA286700DAFEC3 /* GoalCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 848ABC0A22CA286700DAFEC3 /* GoalCell.swift */; };
-		848ABC0D22CA2D2200DAFEC3 /* PublicFunctions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 848ABC0C22CA2D2200DAFEC3 /* PublicFunctions.swift */; };
+		848ABC0D22CA2D2200DAFEC3 /* Base64ImageFunctions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 848ABC0C22CA2D2200DAFEC3 /* Base64ImageFunctions.swift */; };
 		848ABC0F22CA75D100DAFEC3 /* NewGoalController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 848ABC0E22CA75D100DAFEC3 /* NewGoalController.swift */; };
 		849D11B122C52FF200B638A9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 849D11B022C52FF200B638A9 /* AppDelegate.swift */; };
 		849D11B322C52FF200B638A9 /* LoginController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 849D11B222C52FF200B638A9 /* LoginController.swift */; };
@@ -53,12 +55,14 @@
 
 /* Begin PBXFileReference section */
 		8479183722CD157C007CCFC0 /* JSONExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JSONExtension.swift; sourceTree = "<group>"; };
+		8479183A22CD50A4007CCFC0 /* RoundUpFunctions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundUpFunctions.swift; sourceTree = "<group>"; };
+		8479183C22CD6C9B007CCFC0 /* NotificationCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationCardView.swift; sourceTree = "<group>"; };
 		847C45F822CB895200C13921 /* UIKitExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIKitExtensions.swift; sourceTree = "<group>"; };
 		848ABC0422C999E700DAFEC3 /* Goals.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Goals.swift; sourceTree = "<group>"; };
 		848ABC0622CA062000DAFEC3 /* Date.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Date.swift; sourceTree = "<group>"; };
 		848ABC0822CA235B00DAFEC3 /* NewGoalCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewGoalCell.swift; sourceTree = "<group>"; };
 		848ABC0A22CA286700DAFEC3 /* GoalCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalCell.swift; sourceTree = "<group>"; };
-		848ABC0C22CA2D2200DAFEC3 /* PublicFunctions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PublicFunctions.swift; sourceTree = "<group>"; };
+		848ABC0C22CA2D2200DAFEC3 /* Base64ImageFunctions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Base64ImageFunctions.swift; sourceTree = "<group>"; };
 		848ABC0E22CA75D100DAFEC3 /* NewGoalController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewGoalController.swift; sourceTree = "<group>"; };
 		849D11AD22C52FF200B638A9 /* RoundUpFeature_StarlingBank.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RoundUpFeature_StarlingBank.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		849D11B022C52FF200B638A9 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -225,8 +229,9 @@
 				849D11E622C539FE00B638A9 /* UIView+Layout.swift */,
 				849D11EA22C5568E00B638A9 /* CustomTextField.swift */,
 				848ABC0622CA062000DAFEC3 /* Date.swift */,
-				848ABC0C22CA2D2200DAFEC3 /* PublicFunctions.swift */,
+				848ABC0C22CA2D2200DAFEC3 /* Base64ImageFunctions.swift */,
 				847C45F822CB895200C13921 /* UIKitExtensions.swift */,
+				8479183A22CD50A4007CCFC0 /* RoundUpFunctions.swift */,
 				8479183722CD157C007CCFC0 /* JSONExtension.swift */,
 			);
 			path = Helpers;
@@ -253,6 +258,7 @@
 		849D11F222C57E8700B638A9 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				8479183C22CD6C9B007CCFC0 /* NotificationCardView.swift */,
 				847C45FF22CB937200C13921 /* Goals */,
 				847C45FD22CB935700C13921 /* Transactions */,
 			);
@@ -396,15 +402,17 @@
 				84C4A7CF22C95727008BB587 /* Transactions.swift in Sources */,
 				849D11E922C53A3500B638A9 /* TransactionFeedController.swift in Sources */,
 				849D11B322C52FF200B638A9 /* LoginController.swift in Sources */,
+				8479183B22CD50A4007CCFC0 /* RoundUpFunctions.swift in Sources */,
 				8479183822CD157C007CCFC0 /* JSONExtension.swift in Sources */,
 				849D11EE22C5632D00B638A9 /* Service.swift in Sources */,
-				848ABC0D22CA2D2200DAFEC3 /* PublicFunctions.swift in Sources */,
+				848ABC0D22CA2D2200DAFEC3 /* Base64ImageFunctions.swift in Sources */,
 				848ABC0922CA235B00DAFEC3 /* NewGoalCell.swift in Sources */,
 				849D11FD22C782B600B638A9 /* GoalsHeaderCell.swift in Sources */,
 				849D11F422C57ED200B638A9 /* TransactionHeaderView.swift in Sources */,
 				849D11B122C52FF200B638A9 /* AppDelegate.swift in Sources */,
 				848ABC0B22CA286700DAFEC3 /* GoalCell.swift in Sources */,
 				849D11E722C539FE00B638A9 /* UIView+Layout.swift in Sources */,
+				8479183D22CD6C9B007CCFC0 /* NotificationCardView.swift in Sources */,
 				847C45F922CB895200C13921 /* UIKitExtensions.swift in Sources */,
 				849D11EB22C5568E00B638A9 /* CustomTextField.swift in Sources */,
 				849D11FB22C7810300B638A9 /* GoalsController.swift in Sources */,

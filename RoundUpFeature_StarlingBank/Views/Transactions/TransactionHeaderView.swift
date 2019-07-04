@@ -40,7 +40,7 @@ class TransactionHeaderView: UITableViewHeaderFooterView {
     var accountBalance: Amount? {
         didSet {
             guard let balanceInUnits = accountBalance?.minorUnits else {return}
-            let balanceInPounds = CGFloat(balanceInUnits)/100
+            let balanceInPounds = convertMinorUnitsIntToPoundsCGFloat(number: balanceInUnits)
             let attributedText = NSMutableAttributedString(string: "Balance: ", attributes: [NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: 14), NSAttributedString.Key.foregroundColor: UIColor.black])
             attributedText.append(NSAttributedString(string: "£\(balanceInPounds)", attributes: [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 14), NSAttributedString.Key.foregroundColor: UIColor.white]))
             balanceLabel.attributedText = attributedText
@@ -126,7 +126,7 @@ class TransactionHeaderView: UITableViewHeaderFooterView {
     
     lazy var saveToGoalButton: UIButton = {
         let button = UIButton(type: .system)
-        button.setTitle("Save To Goals", for: .normal)
+        button.setTitle("SAVE TO GOALS", for: .normal)
         button.setTitleColor(#colorLiteral(red: 0.05882352963, green: 0.180392161, blue: 0.2470588237, alpha: 1), for: .normal)
         button.titleLabel?.font = UIFont.systemFont(ofSize: 20, weight: .bold)
         button.contentEdgeInsets = UIEdgeInsets(top: 0, left: 16, bottom: 0, right: 16)
@@ -155,22 +155,22 @@ class TransactionHeaderView: UITableViewHeaderFooterView {
         
         addSubview(logoutButton)
         addSubview(logoImageView)
-        addSubview(overallStackView)
+        addSubview(horizantalStackView)
         addSubview(roundUpAmountLabel)
         addSubview(saveToGoalButton)
         
        logoutButton.anchor(top: topAnchor, leading: nil, bottom: nil, trailing: trailingAnchor, padding: .init(top: 25, left: 0, bottom: 0, right: 25), size: .init(width: 40, height: 40))
         
-       logoImageView.anchor(top: nil, leading: nil, bottom: overallStackView.topAnchor, trailing: nil, padding: .init(top: 0, left: 0, bottom: 8, right: 0), size: .init(width: frame.width, height: 60))
+       logoImageView.anchor(top: nil, leading: nil, bottom: horizantalStackView.topAnchor, trailing: nil, padding: .init(top: 0, left: 0, bottom: 20, right: 0), size: .init(width: frame.width, height: 60))
         logoImageView.centerXInSuperview()
         
-        overallStackView.anchor(top: nil, leading: nil, bottom: roundUpAmountLabel.topAnchor, trailing: nil, padding: .zero, size: .init(width: frame.width, height: 60))
-        overallStackView.centerXInSuperview()
+        horizantalStackView.anchor(top: nil, leading: nil, bottom: roundUpAmountLabel.topAnchor, trailing: nil, padding: .zero, size: .init(width: frame.width, height: 30))
+        horizantalStackView.centerXInSuperview()
         
-        roundUpAmountLabel.anchor(top: nil, leading: leadingAnchor, bottom: saveToGoalButton.topAnchor, trailing: trailingAnchor, padding: .init(top: 0, left: 0, bottom: 10, right: 0), size: .init(width: 0, height: 30))
+        roundUpAmountLabel.anchor(top: nil, leading: leadingAnchor, bottom: saveToGoalButton.topAnchor, trailing: trailingAnchor, padding: .init(top: 0, left: 0, bottom: 15, right: 0), size: .init(width: 0, height: 30))
         roundUpAmountLabel.centerXInSuperview()
         
-        saveToGoalButton.anchor(top: nil, leading: nil, bottom: bottomAnchor, trailing: nil, padding: .init(top: 0, left: 0, bottom: 20, right: 0), size: .init(width: 170, height: 40))
+        saveToGoalButton.anchor(top: nil, leading: nil, bottom: bottomAnchor, trailing: nil, padding: .init(top: 0, left: 0, bottom: 25, right: 0), size: .init(width: 190, height: 50))
         saveToGoalButton.centerXInSuperview()
     
     }
