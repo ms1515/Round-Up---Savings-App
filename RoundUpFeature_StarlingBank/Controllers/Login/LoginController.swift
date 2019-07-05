@@ -143,13 +143,17 @@ class LoginController: UIViewController {
             print("Successfully Logged in User")
             
             DispatchQueue.main.async {
-                self?.errorLabel.text = ""
-                self?.activityIndicator.stopAnimating()
-                self?.loginButton.isEnabled = true
-                let transactionFeedController = TransactionFeedController(style: .grouped)
-                self?.navigationController?.pushViewController(transactionFeedController, animated: true)
+              self?.performLoginSteps()
             }
       })
+    }
+    
+    func performLoginSteps() {
+        self.errorLabel.text = ""
+        self.activityIndicator.stopAnimating()
+        self.loginButton.isEnabled = true
+        let transactionFeedController = TransactionFeedController(style: .grouped)
+        self.navigationController?.pushViewController(transactionFeedController, animated: true)
     }
     
     fileprivate func setupTapGesture() {

@@ -254,7 +254,7 @@ class NewGoalController: UIViewController, NotificationCardViewDelegate {
     
     func showNotificationView() {
         
-        notificationCardView.textLabel.text = "SuccessFully created new Goal"
+        notificationCardView.textLabel.text = "Successfully created new Goal"
         notificationCardViewBottomConstraint?.constant = -20 - view.safeAreaInsets.bottom
         UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 0.75, initialSpringVelocity: 1, options: .curveEaseOut, animations: { [weak self] in
             self?.view.layoutIfNeeded()

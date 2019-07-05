@@ -329,7 +329,7 @@ class GoalsController: UICollectionViewController, UICollectionViewDelegateFlowL
         
         switch success {
         case true:
-            notificationCardView.textLabel.text = "SuccessFully transferred the Funds"
+            notificationCardView.textLabel.text = "Successfully transferred the Funds"
         case false:
             notificationCardView.textLabel.text = "Unable to transfer the Funds. Status Code \(String(describing: error))"
         }

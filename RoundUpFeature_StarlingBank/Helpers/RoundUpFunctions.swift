@@ -2,7 +2,7 @@
 //  RoundUpFunctions.swift
 //  RoundUpFeature_StarlingBank
 //
-//  Created by Sheerien Manzoor on 7/3/19.
+//  Created by Muhammad Shahrukh on 7/3/19.
 //  Copyright © 2019 Muhammad Shahrukh. All rights reserved.
 //
 
