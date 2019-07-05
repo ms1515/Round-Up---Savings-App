@@ -29,9 +29,9 @@ Launch Screen -> Login Controller
 
 ### 3. Goals View Controller
 
-* Uses the Goals API to fetch any existing Goals; by fetching the UID of every goal, and associated assets like image etc. This information is used to populate the the collectionView Cells for each goal. However the images for each goal are not 
+* Uses the Goals API to fetch any existing Goals; by fetching the UID of every goal, and associated assets like image etc. This information is used to populate the the collectionView Cells for each goal. However the images for each goal in base64encoded format are not being retreived (as they are not found in the API destination), even though they are being uploaded during goal creation. 
 * TRANSFER FUNDS button transfers the round up amount to the selected goal, and a notification view animates upwards to show the result of transfer (success or failure).
-* The view can be refreshed by swiping down to activate the refresh control on collectionView.
+* The view can be refreshed by swiping down to activate the refresh control on collectionView to retrieve any new saving goals.
 * An extra cell allows you to create a new goal, by presenting a new View Controller: Create New Goal Controller.
 
 ![alt text](https://user-images.githubusercontent.com/30627907/60705136-3a639f80-9efe-11e9-8467-32703f78a95c.jpeg)
@@ -39,7 +39,8 @@ Launch Screen -> Login Controller
 ### 4. Create New Goal Controller
 
 * Uses UIImage Picker to allow selection of goal photo from Photo Library. Also the title and target amount (£) of the goal can be specified.
-* Calls the API to create a new Goal and saves it, displays any error in the textfield and notification view appears in the case of successful creation of new goal. Upon clicking done, the user is taken back to Goals View Controller, where the view can be refreshed by swiping down.
+* Calls the API to create a new Goal and saves it, displays any error in the textfield and notification view appears in the case of successful creation of new goal. 
+* Upon clicking done, the user is taken back to Goals View Controller, where the view can be refreshed by swiping down.
 
 ![alt text](https://user-images.githubusercontent.com/30627907/60705265-94fcfb80-9efe-11e9-94fd-1b46fe488fcd.jpeg)
 
