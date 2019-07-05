@@ -32,7 +32,7 @@ Launch Screen -> Login Controller
 * TRANSFER FUNDS button transfers the round up amount to the selected goal. (currently experiencing error: Status Code 400)
 * An extra cell allows you to create a new goal, by presenting a new View Controller: Create New Goal Controller
 
-![alt text](https://user-images.githubusercontent.com/30627907/60585636-12eac680-9d88-11e9-9216-8c5d55cf7ede.jpeg)
+![alt text](https://user-images.githubusercontent.com/30627907/60705136-3a639f80-9efe-11e9-8467-32703f78a95c.jpeg)
 
 ### 4. Create New Goal Controller
 
