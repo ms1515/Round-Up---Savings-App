@@ -1,7 +1,7 @@
 # RoundUpFeature_StarlingBank
 ### Round Up Feature for Starling Bank
 
-![alt text](https://user-images.githubusercontent.com/30627907/60586306-b5f01000-9d89-11e9-96c1-d498f8121e8d.jpeg)
+![alt text](https://user-images.githubusercontent.com/30627907/60704917-b01b3b80-9efd-11e9-9a38-5bba60c8085f.jpeg)
 
 For  a  customer,  take  all  the  transactions  in  a  given  week  and  round  them  up  to  the nearest  pound.  For  example  with  spending  of  £4.35,  £5.20  and  £0.87,  the  round-up would  be £1.58.  This  amount  should  then  be  transferred  into  a savings  goal,  helping  the customer  save  for  future  adventures. 
 
@@ -12,7 +12,7 @@ For  a  customer,  take  all  the  transactions  in  a  given  week  and  round 
 Launch Screen -> Login Controller
 
 * LOGIN button calls the API service to authenticate the access token and fetch user account details.
-* REFRESH TOKEN button refreshes the access token (currently experiencing error: Status Code 400) 
+* REFRESH TOKEN button refreshes the access token (currently experiencing error: Status Code 400). 
 * Another textfield below the REFRESH and LOGIN Button to display any error resulting from refreshing and logging in.
 
 ![alt text](https://user-images.githubusercontent.com/30627907/60585546-e5058200-9d87-11e9-8ea2-9d1f0cf43ae2.jpeg)
