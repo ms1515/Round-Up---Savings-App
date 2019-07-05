@@ -12,8 +12,8 @@ class Service {
     
     static let shared = Service()
     
-    let authKey = "Authorisation Token"
-    let refreshKey = "Refresh Token"
+    let authKey = "Authorisation Token Key"
+    let refreshKey = "Refresh Token Key"
     var authToken = "Bearer qmrFsjMLyi7Erz0ZWif39iZ9oJrLwtS2ikd2U9WfGuyZnRR0AAAGW9GpK9UNGEwj"
     var refreshToken = "Bearer UvRkayArsK5SyP3tkSYDv5cATiDkliMDVJZj7kcvAF4b3oUTdfreS04JkWUYkqM2"
     let clientId = "udPqv6TYYrJrXVlM3b8U"
