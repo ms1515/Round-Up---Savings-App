@@ -8,7 +8,45 @@
 
 import Foundation
 
+public func timeElapsed(transactionDate: String) -> Int {
+    
+    let transactionDate = transactionDate
+    
+    let calendar = Calendar.current
+    
+    let currentDate = Date()
+    
+    let dateFormatter = DateFormatter()
+    dateFormatter.dateFormat = "dd-MM-yyyy"
+    
+    let secondDate = dateFormatter.date(from: transactionDate) ?? Date()
+    
+    let date1 = calendar.startOfDay(for: currentDate)
+    let date2 = calendar.startOfDay(for: secondDate)
+    
+    let components = calendar.dateComponents([.day], from: date2, to: date1)
+    
+    let days = components.day ?? 0
+    
+    return days
+    
+}
+
+public func formatDate(date: String) -> String {
+    let dateFormatterGet = DateFormatter()
+    dateFormatterGet.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"
+    
+    let dateFormatter = DateFormatter()
+    dateFormatter.dateStyle = .medium
+    dateFormatter.timeStyle = .none
+    
+    let dateObj: Date? = dateFormatterGet.date(from: date)
+    
+    return dateFormatter.string(from: dateObj!)
+}
+
 extension Date {
+    
     func timeAgoDisplay() -> String {
         
         let secondsAgo = Int(Date().timeIntervalSince(self))

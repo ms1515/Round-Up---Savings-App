@@ -177,31 +177,49 @@ class TransactionFeedController: UITableViewController, HeaderViewDelegate {
         }
     }
     
-    // MARK:- Calculate total round up amount for all User payment Transactions
+    // MARK:- Calculate total round up amount for all User payment Transactions in a week
     func calculateRoundUp() {
         
         var roundUpSum: CGFloat = 0
         let feedItems = self.feedItems
         if feedItems.count > 0 {
             self.feedItems.forEach { (feedItem) in
-            guard let paymentDirection = feedItem.direction else {return}
                 
+                guard let paymentDirection = feedItem.direction else {return}
+
                 switch paymentDirection {
                 case "OUT":
                     
-                    let transactionAmountInUnits = feedItem.amount.minorUnits
-                    let roundUpAmountForTransaction = calculateRoundUpForTransaction(number: transactionAmountInUnits)
-                    roundUpSum += roundUpAmountForTransaction
-            
+                    guard let transactionDate = feedItem.settlementTime else {return}
+                    let formattedTransactiondate = formatDate(date: transactionDate)
+                    let daysElapsed = timeElapsed(transactionDate: formattedTransactiondate)
+                    
+                    switch daysElapsed {
+                    case ..<8:
+                        
+                        print("days elapsed \(daysElapsed)")
+                        let transactionAmountInUnits = feedItem.amount.minorUnits
+                        let roundUpAmountForTransaction = calculateRoundUpForTransaction(number: transactionAmountInUnits)
+                        roundUpSum += roundUpAmountForTransaction
+                        
+                    default:
+                        
+                        return
+                        
+                    }
+                    
                 default:
+                    
                     return
             }
         }
     }
         let formatted = String(format: "£%0.2f", roundUpSum)
-        print("Total Round Up Amount: ",formatted)
+        print("Total Round Up Amount for the week: ",formatted)
         self.roundUpAmount = roundUpSum
     }
+    
+    
     
     //MARK:- HeaderView Delegate Methods
     func didTapSaveToGoals() {

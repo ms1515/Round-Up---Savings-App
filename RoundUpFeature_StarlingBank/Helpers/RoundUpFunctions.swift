@@ -10,14 +10,14 @@ import UIKit
 
 public func convertPoundsCGFloatToMinorUnitsInt(number: CGFloat) -> Int {
     let minorUnitsCGFloat = round(number*100)
-    print(minorUnitsCGFloat)
+    //print(minorUnitsCGFloat)
     let minorUnitsInt = Int(minorUnitsCGFloat)
     return minorUnitsInt
 }
 
 public func convertMinorUnitsIntToPoundsCGFloat(number: Int) -> CGFloat {
     let pounds = CGFloat(number)/100
-    print(pounds)
+    //print(pounds)
     return pounds
 }
 

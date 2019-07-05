@@ -12,29 +12,11 @@ class Service {
     
     static let shared = Service()
     
-    let authKey = "Authorisation Token"
-    let refreshKey = "Refresh Token"
     var authToken = "Bearer qmrFsjMLyi7Erz0ZWif39iZ9oJrLwtS2ikd2U9WfGuyZnRR0AAAGW9GpK9UNGEwj"
     var refreshToken = "Bearer UvRkayArsK5SyP3tkSYDv5cATiDkliMDVJZj7kcvAF4b3oUTdfreS04JkWUYkqM2"
+    let userAgent = "Muhammad Shahrukh"
     let clientId = "udPqv6TYYrJrXVlM3b8U"
     let clientSecret = "RjjEVEhzmlV1SWGpYGixyPXN2kSEvoxYbSsi48Fe"
-    
-    init() {
-        saveAuthTokenToUserDefaults(authToken: authToken)
-        obtainAuthTokenFromUserDefaults()
-    }
-    
-    func saveAuthTokenToUserDefaults(authToken: String) {
-        UserDefaults.standard.set(authToken, forKey: authKey)
-        UserDefaults.standard.set(refreshToken, forKey: refreshKey)
-    }
-    
-    func obtainAuthTokenFromUserDefaults() {
-        let accessToken = UserDefaults.standard.value(forKey: authKey) as? String
-        let refreshToken = UserDefaults.standard.value(forKey: refreshKey) as? String
-        self.authToken = accessToken ?? ""
-        self.refreshToken = refreshToken ?? ""
-    }
     
     // Mark:- Refresh Token Method
     func refreshToken(completion: @escaping (HTTPURLResponse?, Error?)->()) {
@@ -43,6 +25,9 @@ class Service {
         
         let urlString = "https://api.starlingbank.com/oauth/access-token"
         guard let url = URL(string: urlString) else {return}
+        
+        let headers = ["Content-Type": "application/x-www-form-urlencoded",
+                       "Authorization": authToken, "User-Agent": userAgent]
         
         let parameters: [String: Any] = [
             "refresh_token": refreshToken,
@@ -53,16 +38,16 @@ class Service {
         
         var request = URLRequest(url: url)
         request.httpMethod = "Post"
-        request.setValue("application/x-www-form-urlencoded", forHTTPHeaderField: "Content-Type")
-        request.setValue(authToken, forHTTPHeaderField: "Authorization")
+        request.allHTTPHeaderFields = headers
         
         do {
-            request.httpBody = try JSONSerialization.data(withJSONObject: parameters, options: .prettyPrinted) // pass dictionary to nsdata object and set it as request body
+            request.httpBody = try JSONSerialization.data(withJSONObject: parameters, options: [.prettyPrinted]) // pass dictionary to nsdata object and set it as request body
             print("successfully encoded to json")
         } catch let error {
             print("Failed to encode Parameters to Json",error.localizedDescription)
         }
         
+        refreshAccessToken(request: request)
         generalAPICall(request: request, completion: completion)
         
     }
@@ -121,12 +106,12 @@ class Service {
             print("T is type: ", T.self)
             
             guard let url = URL(string: urlString) else {return}
+            let headers = ["Content-Type": "application/json",
+                           "Authorization": authToken, "User-Agent": userAgent]
 
             var request = URLRequest(url: url)
             request.httpMethod = "Get"
-            request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-            request.setValue(authToken, forHTTPHeaderField: "Authorization")
-            request.setValue("0", forHTTPHeaderField: "Content-Length")
+            request.allHTTPHeaderFields = headers
             
             let session = URLSession(configuration: URLSessionConfiguration.default)
             session.dataTask(with: request) { (data, resp, err) in
@@ -198,11 +183,12 @@ class Service {
         guard let url = URL(string: urlString) else {return}
         guard let object = object else {return}
         
+        let headers = ["Content-Type": "application/json",
+                       "Authorization": authToken, "User-Agent": userAgent]
+        
         var request = URLRequest(url: url)
         request.httpMethod = "Put"
-        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-        request.setValue(authToken, forHTTPHeaderField: "Authorization")
-        request.setValue("0", forHTTPHeaderField: "Content-Length")
+        request.allHTTPHeaderFields = headers
         
         do {
             let httpBody = try JSONEncoder().encode(object)
@@ -252,8 +238,42 @@ class Service {
         
     }
     
-   
-    
+    // Extra Function
+    func refreshAccessToken(request: URLRequest?) {
+        
+        guard let request = request else {return}
+        
+        let session = URLSession(configuration: URLSessionConfiguration.default)
+        session.dataTask(with: request) { (data, resp, err) in
+            
+            if let resp = resp as? HTTPURLResponse  {
+                
+                guard (200 ... 299) ~= resp.statusCode else { // check for http errors
+                    print("Status Code: \(resp.statusCode)")
+                    
+                    return }
+                print(resp)
+                
+            }
+            
+            if let data = data {
+                
+                do {
+                    
+                    let object = try JSONDecoder().decode(RefreshToken.self, from: data)
+                    self.authToken = "Bearer \(object.accessToken)"
+                    self.refreshToken = "Bearer \(object.refreshToken)"
+                    
+                } catch let jsonErr {
+                    
+                    print("failed to decode json data",jsonErr)
+                    
+                }
+            }
+            
+        }
+    }
+
     
 }
 

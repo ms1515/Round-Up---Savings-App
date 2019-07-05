@@ -274,6 +274,8 @@ class GoalsController: UICollectionViewController, UICollectionViewDelegateFlowL
     
     @objc func transferFunds() {
         
+        transferFundsButton.isEnabled = false
+        
         guard let uid = self.uid else {return}
         guard let roundUpAmount = self.roundUpAmount else {return}
         let roundUpAmountInUnits = convertPoundsCGFloatToMinorUnitsInt(number: roundUpAmount)
@@ -333,8 +335,8 @@ class GoalsController: UICollectionViewController, UICollectionViewDelegateFlowL
         }
         
         notificationCardViewBottomConstraint?.constant = -20 - view.safeAreaInsets.bottom
-        UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 0.75, initialSpringVelocity: 1, options: .curveEaseOut, animations: {
-            self.view.layoutIfNeeded()
+        UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 0.75, initialSpringVelocity: 1, options: .curveEaseOut, animations: { [weak self] in
+            self?.view.layoutIfNeeded()
         }, completion: nil)
         
     }
@@ -342,8 +344,8 @@ class GoalsController: UICollectionViewController, UICollectionViewDelegateFlowL
     func dismissNotificationView() {
         
         notificationCardViewBottomConstraint?.constant = 600
-        UIView.animate(withDuration: 0.75, delay: 0, usingSpringWithDamping: 0.75, initialSpringVelocity: 1, options: .curveEaseOut, animations: {
-            self.view.layoutIfNeeded()
+        UIView.animate(withDuration: 0.75, delay: 0, usingSpringWithDamping: 0.75, initialSpringVelocity: 1, options: .curveEaseOut, animations: { [weak self] in
+            self?.view.layoutIfNeeded()
         }, completion: nil)
         dismissGoalsController()
         

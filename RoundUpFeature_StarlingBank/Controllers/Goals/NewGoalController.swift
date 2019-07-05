@@ -256,8 +256,8 @@ class NewGoalController: UIViewController, NotificationCardViewDelegate {
         
         notificationCardView.textLabel.text = "SuccessFully created new Goal"
         notificationCardViewBottomConstraint?.constant = -20 - view.safeAreaInsets.bottom
-        UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 0.75, initialSpringVelocity: 1, options: .curveEaseOut, animations: {
-            self.view.layoutIfNeeded()
+        UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 0.75, initialSpringVelocity: 1, options: .curveEaseOut, animations: { [weak self] in
+            self?.view.layoutIfNeeded()
         }, completion: nil)
         
     }
@@ -265,9 +265,10 @@ class NewGoalController: UIViewController, NotificationCardViewDelegate {
     func dismissNotificationView() {
         
         notificationCardViewBottomConstraint?.constant = 600
-        UIView.animate(withDuration: 0.75, delay: 0, usingSpringWithDamping: 0.75, initialSpringVelocity: 1, options: .curveEaseOut, animations: {
-            self.view.layoutIfNeeded()
+        UIView.animate(withDuration: 0.75, delay: 0, usingSpringWithDamping: 0.75, initialSpringVelocity: 1, options: .curveEaseOut, animations: { [weak self] in
+            self?.view.layoutIfNeeded()
         }, completion: nil)
+        self.view.endEditing(true)
         dismissNewGoalsController()
         
     }
