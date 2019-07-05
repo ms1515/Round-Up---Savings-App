@@ -39,7 +39,7 @@ Launch Screen -> Login Controller
 * Uses UIImage Picker to allow selection of goal photo from Photo Library. Also the title and target amount (£) of the goal can be specified.
 * Calls the API to create a new Goal and saves it, and displays  error text in both failure case, and reloads the collectionView.
 
-![alt text](https://user-images.githubusercontent.com/30627907/60585648-1b430180-9d88-11e9-8126-fa0c664112d8.jpeg)
+![alt text](https://user-images.githubusercontent.com/30627907/60705265-94fcfb80-9efe-11e9-94fd-1b46fe488fcd.jpeg)
 
 
 
