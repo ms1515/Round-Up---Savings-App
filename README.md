@@ -24,6 +24,7 @@ Launch Screen -> Login Controller
 * The transactions are displayed in the cells below the header, with their amounts and possible round Up.
 * The view can be refreshed by swiping down to activate the refresh control on tableView after any new transactions or transferring of funds to saving goals..
 * SAVE TO GOALS button takes the user to the Goals View Controller, with the round up amount allocated to a file variable.
+* The POWER button takes the user back to the Login Controller to simulate logging out.
 
 ![alt text](https://user-images.githubusercontent.com/30627907/60705049-05efe380-9efe-11e9-99c6-eab22b96eb7a.jpeg)
 
