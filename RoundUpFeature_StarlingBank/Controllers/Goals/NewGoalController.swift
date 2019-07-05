@@ -8,7 +8,7 @@
 
 import UIKit
 
-extension NewGoalController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+extension NewGoalController: UIImagePickerControllerDelegate, UINavigationControllerDelegate, UITextFieldDelegate {
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         let image = info[.originalImage] as? UIImage
@@ -19,6 +19,14 @@ extension NewGoalController: UIImagePickerControllerDelegate, UINavigationContro
     
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
         dismiss(animated: true)
+    }
+    
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        
+        let allowedCharacters = CharacterSet.decimalDigits
+        let characterSet = CharacterSet(charactersIn: string)
+        return allowedCharacters.isSuperset(of: characterSet)
+        
     }
     
 }
@@ -133,7 +141,8 @@ class NewGoalController: UIViewController, NotificationCardViewDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-    
+        
+        goalTargetTextField.delegate = self
         setupGradientLayer()
         setupViews()
         setupNotificationObservers()

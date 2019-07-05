@@ -12,8 +12,8 @@ class Service {
     
     static let shared = Service()
     
-    var accessToken = "Bearer 1sr2ihamYFz6lolr7MX71bF4m38UkKcLSaorfJ3AtynLthK83SAyunx9cDx0ohRC"
-    var refreshToken = "Bearer LkyswxVfdarg1W30TuCtM3w1BZYdanwx7VB9Pppy1wResKwvxsKAa31RdammpmYg"
+    var accessToken = "Bearer slPxPtcb6fxr25SwrNh6t59kdAWB3Ce2KYEKs9EuvNNFv4LlmewYNCa6SJWBAcRe"
+    var refreshToken = "Bearer xvJJf9hdzupdEZ4M4FhWcjJ5jBEGWUoczwiSe7WjNmnMqhT84hTPVCVlZKzK8s7h"
     let userAgent = "Muhammad Shahrukh"
     let clientId = "udPqv6TYYrJrXVlM3b8U"
     let clientSecret = "RjjEVEhzmlV1SWGpYGixyPXN2kSEvoxYbSsi48Fe"
