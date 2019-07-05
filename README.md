@@ -30,6 +30,7 @@ Launch Screen -> Login Controller
 ### 3. Goals View Controller
 
 * Uses the Goals API to fetch any existing Goals; by fetching the UID of every goal, and associated assets like image etc. This information is used to populate the the collectionView Cells for each goal. However the images for each goal in base64encoded format are not being retreived (as they are not found in the API destination), even though they are being uploaded during goal creation. 
+* The Cells' transform changes upon selection via animation to provide a satisfactory interactive experience.
 * TRANSFER FUNDS button transfers the round up amount to the selected goal, and a notification view animates upwards to show the result of transfer (success or failure).
 * CANCEL Button dismisses the current View Controller and takes the user back to the Transaction Feed Controller.
 * The view can be refreshed by swiping down to activate the refresh control on collectionView to retrieve any new saving goals.
