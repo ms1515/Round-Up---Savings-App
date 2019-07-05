@@ -121,9 +121,10 @@ class TransactionFeedController: UITableViewController, HeaderViewDelegate {
             self?.userDetails = retreivedAccount?.accounts ?? []
             
             guard let uid = self?.userDetails[0].accountUid else {return}
+            guard let categoryUid = self?.userDetails[0].defaultCategory else {return}
             self?.fetchCurrentUserAccountDetails(uid: uid)
             self?.fetchCurrentUserBalance(uid: uid)
-            self?.fetchCurrentUserTransactions(uid: uid)
+            self?.fetchCurrentUserTransactions(uid: uid, categoryUid: categoryUid)
             
         })
         
@@ -159,9 +160,12 @@ class TransactionFeedController: UITableViewController, HeaderViewDelegate {
         }
     }
     
-    func fetchCurrentUserTransactions(uid: String?) {
+    func fetchCurrentUserTransactions(uid: String?, categoryUid: String?) {
+        
         guard let uid = uid else {return}
-        Service.shared.fetchUserTransactions(uid: uid) { [weak self] (transactions, resp, err) in
+        guard let categoryUid = categoryUid else {return}
+        
+        Service.shared.fetchUserTransactions(uid: uid, categoryUid: categoryUid) { [weak self] (transactions, resp, err) in
             
             if let err = err {
                 print(err)
@@ -173,6 +177,7 @@ class TransactionFeedController: UITableViewController, HeaderViewDelegate {
             
             DispatchQueue.main.async {
                 self?.tableView.reloadData()
+                
                 }
         }
     }

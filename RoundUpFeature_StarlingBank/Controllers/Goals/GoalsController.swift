@@ -28,7 +28,7 @@ class GoalsController: UICollectionViewController, UICollectionViewDelegateFlowL
         let button = UIButton(type: .system)
         button.setTitle("CANCEL", for: .normal)
         button.setTitleColor(#colorLiteral(red: 0.1921568662, green: 0.007843137719, blue: 0.09019608051, alpha: 1), for: .normal)
-        button.titleLabel?.font = UIFont.systemFont(ofSize: 20, weight: .heavy)
+        button.titleLabel?.font = UIFont.systemFont(ofSize: 18, weight: .heavy)
         button.contentEdgeInsets = UIEdgeInsets(top: 0, left: 16, bottom: 0, right: 16)
         button.backgroundColor = .white
         button.alpha = 0.5
@@ -46,7 +46,7 @@ class GoalsController: UICollectionViewController, UICollectionViewDelegateFlowL
         let button = UIButton(type: .system)
         button.setTitle("TRANSFER FUNDS", for: .normal)
         button.setTitleColor(#colorLiteral(red: 0, green: 0, blue: 0, alpha: 1), for: .normal)
-        button.titleLabel?.font = UIFont.systemFont(ofSize: 20, weight: .heavy)
+        button.titleLabel?.font = UIFont.systemFont(ofSize: 18, weight: .heavy)
         button.contentEdgeInsets = UIEdgeInsets(top: 0, left: 16, bottom: 0, right: 16)
         button.backgroundColor = .white
         button.alpha = 0.5

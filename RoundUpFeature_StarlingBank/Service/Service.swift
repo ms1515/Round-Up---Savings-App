@@ -12,8 +12,8 @@ class Service {
     
     static let shared = Service()
     
-    var authToken = "Bearer qmrFsjMLyi7Erz0ZWif39iZ9oJrLwtS2ikd2U9WfGuyZnRR0AAAGW9GpK9UNGEwj"
-    var refreshToken = "Bearer UvRkayArsK5SyP3tkSYDv5cATiDkliMDVJZj7kcvAF4b3oUTdfreS04JkWUYkqM2"
+    var accessToken = "Bearer 1sr2ihamYFz6lolr7MX71bF4m38UkKcLSaorfJ3AtynLthK83SAyunx9cDx0ohRC"
+    var refreshToken = "Bearer LkyswxVfdarg1W30TuCtM3w1BZYdanwx7VB9Pppy1wResKwvxsKAa31RdammpmYg"
     let userAgent = "Muhammad Shahrukh"
     let clientId = "udPqv6TYYrJrXVlM3b8U"
     let clientSecret = "RjjEVEhzmlV1SWGpYGixyPXN2kSEvoxYbSsi48Fe"
@@ -21,13 +21,13 @@ class Service {
     // Mark:- Refresh Token Method
     func refreshToken(completion: @escaping (HTTPURLResponse?, Error?)->()) {
         
-        print("access token: \(authToken)")
+        print("access tokens: \(accessToken)")
         
         let urlString = "https://api.starlingbank.com/oauth/access-token"
         guard let url = URL(string: urlString) else {return}
         
         let headers = ["Content-Type": "application/x-www-form-urlencoded",
-                       "Authorization": authToken, "User-Agent": userAgent]
+                       "Authorization": accessToken, "User-Agent": userAgent]
         
         let parameters: [String: Any] = [
             "refresh_token": refreshToken,
@@ -47,7 +47,7 @@ class Service {
             print("Failed to encode Parameters to Json",error.localizedDescription)
         }
         
-        refreshAccessToken(request: request)
+        //refreshAccessToken(request: request, completion: completion)
         generalAPICall(request: request, completion: completion)
         
     }
@@ -73,10 +73,10 @@ class Service {
         genericFetchAPICall(urlString: urlString, completion: completion)
     }
     
-    func fetchUserTransactions(uid: String?, completion: @escaping (Transactions?, URLResponse?, Error?) -> ()) {
+    func fetchUserTransactions(uid: String?, categoryUid: String?, completion: @escaping (Transactions?, URLResponse?, Error?) -> ()) {
         
         guard let uid = uid else {return}
-        let categoryUid = "af8f1230-d116-4a7c-981b-71161a7b610a"
+        guard let categoryUid = categoryUid else {return}
         let urlString = "https://api-sandbox.starlingbank.com/api/v2/feed/account/\(uid)/category/\(categoryUid)"
        genericFetchAPICall(urlString: urlString, completion: completion)
         
@@ -107,7 +107,7 @@ class Service {
             
             guard let url = URL(string: urlString) else {return}
             let headers = ["Content-Type": "application/json",
-                           "Authorization": authToken, "User-Agent": userAgent]
+                           "Authorization": accessToken, "User-Agent": userAgent]
 
             var request = URLRequest(url: url)
             request.httpMethod = "Get"
@@ -184,7 +184,7 @@ class Service {
         guard let object = object else {return}
         
         let headers = ["Content-Type": "application/json",
-                       "Authorization": authToken, "User-Agent": userAgent]
+                       "Authorization": accessToken, "User-Agent": userAgent]
         
         var request = URLRequest(url: url)
         request.httpMethod = "Put"
@@ -238,8 +238,8 @@ class Service {
         
     }
     
-    // Extra Function
-    func refreshAccessToken(request: URLRequest?) {
+    // Extra refresh access token Function
+    func refreshAccessToken(request: URLRequest?, completion: @escaping (HTTPURLResponse?, Error?)->()) {
         
         guard let request = request else {return}
         
@@ -248,10 +248,12 @@ class Service {
             
             if let resp = resp as? HTTPURLResponse  {
                 
+                completion(resp,nil)
+                
                 guard (200 ... 299) ~= resp.statusCode else { // check for http errors
                     print("Status Code: \(resp.statusCode)")
-                    
                     return }
+                
                 print(resp)
                 
             }
@@ -261,17 +263,19 @@ class Service {
                 do {
                     
                     let object = try JSONDecoder().decode(RefreshToken.self, from: data)
-                    self.authToken = "Bearer \(object.accessToken)"
+                    self.accessToken = "Bearer \(object.accessToken)"
                     self.refreshToken = "Bearer \(object.refreshToken)"
                     
                 } catch let jsonErr {
                     
                     print("failed to decode json data",jsonErr)
                     
+                    completion(nil,jsonErr)
+                    
                 }
             }
             
-        }
+        }.resume()
     }
 
     
