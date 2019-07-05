@@ -57,20 +57,20 @@ class Service {
             
             let urlString = "https://api-sandbox.starlingbank.com/api/v2/accounts"
             
-            genericFetchAPICall(urlString: urlString, completion: completion)
+            genericGetAPICall(urlString: urlString, completion: completion)
             
         }
     
     func fetchUserAccountDetails(uid: String?, completion: @escaping (AccountDetails?, URLResponse?, Error?) -> () ) {
         guard let uid = uid else {return}
         let urlString = "https://api-sandbox.starlingbank.com/api/v2/accounts/\(uid)/identifiers"
-        genericFetchAPICall(urlString: urlString, completion: completion)
+        genericGetAPICall(urlString: urlString, completion: completion)
     }
     
     func fetchUserAccountBalance(uid: String?, completion: @escaping (Balance?, URLResponse?, Error?) -> ()) {
         guard let uid = uid else {return}
         let urlString = "https://api-sandbox.starlingbank.com/api/v2/accounts/\(uid)/balance"
-        genericFetchAPICall(urlString: urlString, completion: completion)
+        genericGetAPICall(urlString: urlString, completion: completion)
     }
     
     func fetchUserTransactions(uid: String?, categoryUid: String?, completion: @escaping (Transactions?, URLResponse?, Error?) -> ()) {
@@ -78,7 +78,7 @@ class Service {
         guard let uid = uid else {return}
         guard let categoryUid = categoryUid else {return}
         let urlString = "https://api-sandbox.starlingbank.com/api/v2/feed/account/\(uid)/category/\(categoryUid)"
-       genericFetchAPICall(urlString: urlString, completion: completion)
+       genericGetAPICall(urlString: urlString, completion: completion)
         
     }
     
@@ -86,7 +86,7 @@ class Service {
         
         guard let uid = uid else {return}
         let urlString = "https://api-sandbox.starlingbank.com/api/v2/account/\(uid)/savings-goals"
-        genericFetchAPICall(urlString: urlString, completion: completion)
+        genericGetAPICall(urlString: urlString, completion: completion)
         
     }
     
@@ -97,11 +97,11 @@ class Service {
         
         let urlString = "https://api-sandbox.starlingbank.com/api/v2/account/\(uid)/savings-goals/\(goalUid)/photo"
         
-        genericFetchAPICall(urlString: urlString, completion: completion)
+        genericGetAPICall(urlString: urlString, completion: completion)
     }
 
     // Mark:- Generic "GET" API Call that returns a decodable object of type T
-        func genericFetchAPICall<T: Decodable> (urlString: String, completion: @escaping (T?, URLResponse?, Error?) -> ()) {
+        func genericGetAPICall<T: Decodable> (urlString: String, completion: @escaping (T?, URLResponse?, Error?) -> ()) {
             
             print("T is type: ", T.self)
             
@@ -161,7 +161,7 @@ class Service {
         
         let urlString = "https://api-sandbox.starlingbank.com/api/v2/account/\(uid)/savings-goals/\(goalUid)/add-money/\(transferUid)"
         
-        genericPostAPICall(urlString: urlString, object: fundTransfer, completion: completion)
+        genericPutAPICall(urlString: urlString, object: fundTransfer, completion: completion)
         
     }
 
@@ -173,11 +173,11 @@ class Service {
         
         let urlString = "https://api-sandbox.starlingbank.com/api/v2/account/\(uid)/savings-goals"
         
-        genericPostAPICall(urlString: urlString, object: newGoal, completion: completion)
+        genericPutAPICall(urlString: urlString, object: newGoal, completion: completion)
         
     }
     
-    func genericPostAPICall<T: Encodable> (urlString: String?, object: T?, completion: @escaping (HTTPURLResponse?, Error?)->()){
+    func genericPutAPICall<T: Encodable> (urlString: String?, object: T?, completion: @escaping (HTTPURLResponse?, Error?)->()){
         
         guard let urlString = urlString else {return}
         guard let url = URL(string: urlString) else {return}
