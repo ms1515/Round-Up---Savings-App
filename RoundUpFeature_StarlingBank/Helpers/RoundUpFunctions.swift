@@ -32,10 +32,15 @@ public func calculateRoundUpForTransaction(number: Int) -> CGFloat {
     
     let transactionAmountInPounds = convertMinorUnitsIntToPoundsCGFloat(number: number)
     
-    if CGFloat(Int(transactionAmountInPounds)) - transactionAmountInPounds != 0 {
-        let roundUpAmount = CGFloat(Int(transactionAmountInPounds)) + 1 - transactionAmountInPounds
-            return roundUpAmount
-    } else {
+    let remainingAmount = CGFloat(Int(transactionAmountInPounds)) - transactionAmountInPounds
+    
+    switch remainingAmount {
+    case 0:
         return 0
+    default:
+        let roundUpAmount = CGFloat(Int(transactionAmountInPounds)) + 1 - transactionAmountInPounds
+        return roundUpAmount
+        
     }
+  
 }

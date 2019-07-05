@@ -15,7 +15,6 @@ class TransactionFeedController: UITableViewController, HeaderViewDelegate {
     fileprivate let headerCellId = "headerCellId"
     fileprivate let cellId = "cellId"
     
-
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -35,14 +34,17 @@ class TransactionFeedController: UITableViewController, HeaderViewDelegate {
         refreshControl.tintColor = .white
         refreshControl.addTarget(self, action: #selector(handleRefresh), for: .valueChanged)
         tableView?.refreshControl = refreshControl
+        
     }
     
     @objc func handleRefresh() {
+        
         print("handling refresh")
         
         fetchCurrentUser()
         tableView?.reloadData()
         tableView?.refreshControl?.endRefreshing()
+        
     }
     
     // MARK:- Setup TableView
@@ -188,8 +190,8 @@ class TransactionFeedController: UITableViewController, HeaderViewDelegate {
                 case "OUT":
                     
                     let transactionAmountInUnits = feedItem.amount.minorUnits
-                    let roundUpAmount = calculateRoundUpForTransaction(number: transactionAmountInUnits)
-                    roundUpSum += roundUpAmount
+                    let roundUpAmountForTransaction = calculateRoundUpForTransaction(number: transactionAmountInUnits)
+                    roundUpSum += roundUpAmountForTransaction
             
                 default:
                     return
