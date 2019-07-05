@@ -12,7 +12,7 @@ For  a  customer,  take  all  the  transactions  in  a  given  week  and  round 
 Launch Screen -> Login Controller
 
 * LOGIN button calls the API service to authenticate the access token and fetch user account details.
-* REFRESH TOKEN button refreshes the access token (currently experiencing error: Status Code 400). 
+* REFRESH TOKEN button refreshes the access token using the refresh token upon selection as the access token expires after 24 hours (currently experiencing error: Status Code 400. Cannot understand why as the request and parameters seem to be correct). 
 * Another textfield below the REFRESH and LOGIN Button to display any error resulting from refreshing and logging in.
 
 ![alt text](https://user-images.githubusercontent.com/30627907/60585546-e5058200-9d87-11e9-8ea2-9d1f0cf43ae2.jpeg)
@@ -22,22 +22,24 @@ Launch Screen -> Login Controller
 * User balance fetched in the viewDidLoad() method in the Transactions Feed Controller after the user has been authenticated via the access token.
 * User Account number and current balance displayed in the header cell.
 * The transactions are displayed in the cells below the header, with their amounts and possible round Up.
+* The view can be refreshed by swiping down to activate the refresh control on tableView after any new transactions or transferring of funds to saving goals..
 * “Save to Goals” button -> to the Goals View Controller, with the round up amount allocated to a file variable.
 
 ![alt text](https://user-images.githubusercontent.com/30627907/60705049-05efe380-9efe-11e9-99c6-eab22b96eb7a.jpeg)
 
 ### 3. Goals View Controller
 
-* Uses the Goals API to fetch any existing Goals; by fetching the UID of every goal, and associated assets like image etc. This information is used to populate the the collectionView Cells for each goal.
-* TRANSFER FUNDS button transfers the round up amount to the selected goal. (currently experiencing error: Status Code 400)
-* An extra cell allows you to create a new goal, by presenting a new View Controller: Create New Goal Controller
+* Uses the Goals API to fetch any existing Goals; by fetching the UID of every goal, and associated assets like image etc. This information is used to populate the the collectionView Cells for each goal. However the images for each goal are not 
+* TRANSFER FUNDS button transfers the round up amount to the selected goal, and a notification view animates upwards to show the result of transfer (success or failure).
+* The view can be refreshed by swiping down to activate the refresh control on collectionView.
+* An extra cell allows you to create a new goal, by presenting a new View Controller: Create New Goal Controller.
 
 ![alt text](https://user-images.githubusercontent.com/30627907/60705136-3a639f80-9efe-11e9-8467-32703f78a95c.jpeg)
 
 ### 4. Create New Goal Controller
 
 * Uses UIImage Picker to allow selection of goal photo from Photo Library. Also the title and target amount (£) of the goal can be specified.
-* Calls the API to create a new Goal and saves it, and displays  error text in both failure case, and reloads the collectionView.
+* Calls the API to create a new Goal and saves it, displays any error in the textfield and notification view appears in the case of successful creation of new goal. Upon clicking done, the user is taken back to Goals View Controller, where the view can be refreshed by swiping down.
 
 ![alt text](https://user-images.githubusercontent.com/30627907/60705265-94fcfb80-9efe-11e9-94fd-1b46fe488fcd.jpeg)
 
