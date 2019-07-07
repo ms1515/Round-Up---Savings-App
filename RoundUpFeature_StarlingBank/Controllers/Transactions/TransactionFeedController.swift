@@ -133,6 +133,7 @@ class TransactionFeedController: UITableViewController, HeaderViewDelegate {
     func fetchCurrentUserAccountDetails(uid: String?) {
         guard let uid = uid else {return}
         Service.shared.fetchUserAccountDetails(uid: uid) { [weak self] (accountDetails, resp, err) in
+            
             if let err = err {
                 print("Failed to fetch account details: ",err)
                 return

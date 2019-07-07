@@ -8,6 +8,10 @@
 
 import Foundation
 
+struct parameters: Codable {
+    
+}
+
 struct RefreshToken: Codable {
     let accessToken, refreshToken, tokenType: String
     let expiresIn: Int

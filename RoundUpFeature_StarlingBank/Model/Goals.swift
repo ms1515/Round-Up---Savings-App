@@ -15,7 +15,7 @@ struct Goals: Codable {
 struct SavingsGoalList: Codable {
     let savingsGoalUid, name: String
     let target, totalSaved: Amount
-    let savedPercentage: Int
+    let savedPercentage: Int?
 }
 
 struct SavingsGoalPhoto: Codable {

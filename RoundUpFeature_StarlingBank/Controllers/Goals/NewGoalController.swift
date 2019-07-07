@@ -21,6 +21,7 @@ extension NewGoalController: UIImagePickerControllerDelegate, UINavigationContro
         dismiss(animated: true)
     }
     
+    // MARK:- Only allowing numbers to be inputted into target (£) textfield
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         
         let allowedCharacters = CharacterSet.decimalDigits

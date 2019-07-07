@@ -73,8 +73,8 @@ class LoginController: UIViewController {
         
         navigationController?.isNavigationBarHidden = true
         setupGradientLayer()
-        setupTapGesture()
         setupViews()
+        
     }
 
     
@@ -105,7 +105,8 @@ class LoginController: UIViewController {
         
         activityIndicator.startAnimating()
         refreshTokenButton.isEnabled = false
-        Service.shared.refreshToken { [weak self] (resp, err) in
+        
+        Service.shared.refreshToken { [weak self] (data, resp, err) in
             
             guard let resp = resp else {return}
             
@@ -121,7 +122,8 @@ class LoginController: UIViewController {
                 return }
             
            print(resp)
-        }
+            
+        } 
     }
 
     @objc fileprivate func login() {
@@ -140,6 +142,19 @@ class LoginController: UIViewController {
                 return
             }
             
+            if let resp = resp as? HTTPURLResponse {
+            
+            guard (200 ... 299) ~= resp.statusCode else { // check for http errors
+                print("Status Code: \(resp.statusCode)")
+                
+                DispatchQueue.main.async {
+                    self?.errorLabel.text = "Status Code: \(resp.statusCode)"
+                    self?.activityIndicator.stopAnimating()
+                    self?.loginButton.isEnabled = true
+                }
+                return }
+            }
+                
             print("Successfully Logged in User")
             
             DispatchQueue.main.async {
@@ -156,14 +171,8 @@ class LoginController: UIViewController {
         self.navigationController?.pushViewController(transactionFeedController, animated: true)
     }
     
-    fileprivate func setupTapGesture() {
-        view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleTapDismiss)))
-    }
     
-    @objc fileprivate func handleTapDismiss() {
-        self.view.endEditing(true) // dismisses keyboard
-    }
-    
+    //MARK:- Setting up gradient layer
     let gradientLayer = CAGradientLayer()
     
     override func viewWillLayoutSubviews() {

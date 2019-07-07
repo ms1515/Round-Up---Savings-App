@@ -25,3 +25,17 @@ extension Encodable {
         return json
     }
 }
+
+extension Encodable {
+    
+    var dictionary: [String: Any]? {
+        if let data = try? JSONEncoder().encode(self) {
+            if let dict = try? JSONSerialization.jsonObject(with: data) as? [String: Any] {
+                return dict
+            }
+            return nil
+        }
+        return nil
+    }
+    
+}
