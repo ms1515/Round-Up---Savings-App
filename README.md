@@ -12,7 +12,7 @@ For  a  customer,  take  all  the  transactions  in  a  given  week  and  round 
 Launch Screen -> Login Controller
 
 * LOG IN button calls the API service to authenticate the access token and fetch user account details.
-* REFRESH TOKEN button refreshes the access token using the refresh token upon selection as the access token expires after 24 hours (currently experiencing error: Status Code 400. Cannot understand why as the request and parameters seem to be correct). 
+* REFRESH TOKEN button refreshes the access token using the refresh token upon selection as the access token expires after 24 hours (currently experiencing error: Status Code 400, Refresh token invalid, expired or revoked. I have tried refreshing manually from sandbox and using the new access and refresh token repeatedly, but to no avail.). 
 * Another textfield below the REFRESH and LOGIN Button to display any error resulting from refreshing and logging in.
 
 ![alt text](https://user-images.githubusercontent.com/30627907/60585546-e5058200-9d87-11e9-8ea2-9d1f0cf43ae2.jpeg)
