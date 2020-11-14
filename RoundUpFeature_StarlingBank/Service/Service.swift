@@ -12,8 +12,8 @@ class Service {
     
     static let shared = Service()
     
-    var accessToken = "Bearer eyJhbGciOiJQUzI1NiIsInppcCI6IkdaSVAifQ.H4sIAAAAAAAAAH1Uy5KbMBD8lS3Oqy0sBAZuueUH8gEjaWSrDBIlCSdbqfx7BBLGOFu5ubvn0TMj_LvQ3hd9AZMmEkf74QO4QZsLB3P7EHYs3gs_8xhxEkLS6sxjGJeElfxEuqZGwpgUJ96BqpSKwfhrKvpTU9bsTGnN3gsNIRFVW7cLAULY2YTvdpDofmgZazPJzlycS8KaqiEMkJGuLgVBSoHVSrZth7F2sDc0OaNmWFFaEgpAoxvGSVdGcyg5VVUn-amhMSOO9U0I9D5lVW3FKDu1pFJNFfuwirRdTUlVNhWnoFijzsvAwk64LCU5JdfVKjEwYu8Q5NuLED6nF0FLNEErje7ID9qHA5OBlC6a7FHq8ABJCQHEdcRH5I5_Oh3wDeZwtU77eDKijdR3LWcYUjCHAYzI1gQ4SYQ1wdkhNVqYrFmjtBshaGuIVUTNRvqH5B_dN5Bai9kHO24j4gg6Fx4wGjGXHqZp-HygNWoEIyFgL3HAWGKDWXM3DMsgk0OFDqN3_z8p2UjaNIDAuIGAF7fO8Zz4r5hT0YkrbNONGCC6gV5EuKoZr0NN8Im4SQnkIRLYg4ge4ZJnStr-kwQHxoPYHUaa8Hm49dslcaf2bgnvDRN-FBisiEd_Cl8JYpfrv7I5y1mlh81rMn-g1iiHAvUUDsAfpbRJD_d4HU8udvdx4LL1A7fWeWbSduJ9vyqxi1_U2sVUVFxRzgNKEsfevx6PIcQB5ynDCbavI_7tra-UWCef2h_Zre-R3fIDLo2I8PdXapIqUzP3wsWtLdffqj1za9TzE1kP8_pmij9_AcsyE6O3BQAA.Af_7pClPK6SYlERkgYMwC71GlhQri79mo8sxn9POP6RdWrfrlXz1S6IRjI-4x9u9sHl_PDX8xRPiSLg8uYjdFxeMe0iVLbea88VIKOUX9SPiAOw5R7JsXrR439VN5D_X2QnXurFgj4dwzbGAT0kGoUwNNf2uS2mBbmWztCoxg3uoPsWXLQTcYTOQWzBso7wv4p95agCTSvY80j2wuM0_9hILYSdynLsAhnXjXNXT041GyNQ9ieeiI5MvRto0-Smx-cwjQjbCGtCHlPIFuRqosbnSTQfL-IEMgVk2V7Q7qXWXDk6rg6lgBvxCX5uZibR1_aPfDgYyMOXoN21tlcLc9fkN1n42q_lnxInYnWDcw7AqCfzZV4sq3tnsgb7_oMLH3o4aaCqEJoSHm6VubvU9INzjozWZi2C34rvRpnxwp7NyBf89zRLy0KikhOY5mDqJ-sgopRmsR_8gPL8zzq4u6-Q-cSMYC3vkktsYDFkpRz5-WoNZV8-HrWBNc39sViSp4SzzOBibiqjd5N_rpdR7tbcsViy9NGDUZW6KTnDCUYdyDCumXgG6Wj19S0-W3YBvMUeVS19Bx72f7OLu-b2oEPKPAt0SsVxAeAMZBNMKqj-pDpPl7LiGsVZ9TX8cVGFifSdGsHdaHpXRY4VhLM0_0Fi6av5-r2h-KKQ5z_mMR3E"
-    var refreshToken = "Bearer OY3R8aldgvYOvOyGhxpmszm1nCWLqLRD1ycP2xGlDOQdjOlSZDdRhQ9t1kCXxypk"
+    static var accessToken = "Bearer eyJhbGciOiJQUzI1NiIsInppcCI6IkdaSVAifQ.H4sIAAAAAAAAAH1Uy5KbMBD8lS3OO1s8BDbccssP5AMGaWSrDBIlCSdbqfx7BBLGOFu5ubvn0TMj_DtTzmVdhpMCQaP5cB7toPSlR3374GbM3jM39yGi4FyU1akPYb0AlvcFtE1NwJjgRd-irKQMwfRryrqiyWt2OrV5-Z4p9JGo2qJeCOTczNp_N4Mg-0OJUJsJdur5KQfWVA0wJAZtnXOgskRWS3E-txRqe3MjnTJqFA3VZyjFuQRWsApCUAMlL2WVU3tCFCEjjPWNc3IuZlXnipWsOEMlmyr0WbLauoQqb6q-RMkaeVoG5maiZSnRKVxXq6BxpM4SircXwX9OL4ISpL2SiuyRH5TzByYBIWww2ZFQ_gGi4j3y60iPyB3_tMrTG87-aqxy4WSgtFB3JWYcYnCPA2qerHG0ArjR3pohNlqYpBktlR3RK6PBSJCzFu4huUf3DcTWfHbejNuINKJKhQcKRvSlw2kaPh9ojRpRC_TUCRoolNhg0uyN_DLIZEmSpeDd_U-KNqI2DcgpbMDTxa5zPCf-K6ZUsvyK23QjeQxusOMBrmrC61ATfhJtUgRpiAj2IFAjXtJMUdt_greoHfLdYaChn4dbt12SdmrvFvHeMOJHgcHwcPSn8JUAs1z_lU1Z1kg1bF6j-QO1RlnipCZ_AO4oxU06vIfrOLiY3ceBS9YP3FrnmYnbCff9qsQuflFrF2NRfiUxDyQgjL1_PY68DwPOU4ITbl9H-NtbXykYK57aH9mt75Hd8j0tjYC7-ys1CZmouXfchq0t19-qPXNr1PMTWQ_z-mayP38B3NpJXLcFAAA.aOwmYZdAgyIQ10O738qHua8R1aQWaCVSjc5VLy_MwBR43WZ5Bx9zbkQGwoYDmIyxip4vrQTXb8GdIrZn91-N9mZdZ8ZMnN-WZuAD7I8c7BSwe_mAyuwhJf3FoH0rJuC9g4Q0DabZZ5Cg9FZk2L0Zgidoa_R6ZaLMgR52_FKbCm__C0NpapcYrqIejkvIy5nt1mdmVycOt46DTcFhU88To9bO266ARragqSAEiK8ISjWX7GDIULSXT3vjwphXlD9WoDFL3uHA1C8z4L5NuRGemusy1g5FxS8bhjXBp-h1nEHaorDnDxrhe8W_xVImTsWixDGnU_wXnQvThyy0qfIkgKgCFhR19LKOCTnpofOjVv1Dxe00JJZKJb--UFtWDG1kaKJg18QIfBMr8khcDsDm5zb4cxsmdGu91AWfT0XZFUTmGHuH03PIg9jvzeVnc5WAU5-5NKOEHgC4R1XYrX0DSjt6z8splsUQkfrcVV5cWCCR1EsQDof516p3KMXgCrSufQdUpD0AW1cb8Fj97h6B_RmekrG1qZt4hB04CY2B3i-VK6qOpuXZL3dTFz-EYEVsJVjuLkA8zqst6V6addFrP84Yd_GGhdu0xnoyCpzGg-GSEPC3nG2nWLgPAaemoYiZajO7whFnFUAzO6c2R3zjrG4idvBbge3Z8XmmgaNnLro"
+    var refreshToken = "bSFjOOzeNh9jfvOlUxR7fDlvChcuzI5BwauNHkQMSLWPKg6T8zWl9x7HtyPIhgaZ"
     let userAgent = "Muhammad Shahrukh"
     let clientId = "hHImUzRJiynSMpSEvCVe"
     let clientSecret = "tqmYxumZRsdKuA6SnP4ZVsHaTctcnw70btrdscXp"
@@ -26,7 +26,7 @@ class Service {
         
         let headers = ["Content-Type": "application/x-www-form-urlencoded"]
         
-        let data : Data = "refresh_token=\(refreshToken)&client_id=\(clientId)&client_secret=\(clientSecret)&grant_type=refresh_token".data(using: .utf8)!
+        let data : Data = "refresh_token=\(refreshToken))&client_id=\(clientId)&client_secret=\(clientSecret)&grant_type=refresh_token".data(using: .utf8)!
         
         var request = URLRequest(url: url)
         request.httpMethod = "Post"
@@ -132,7 +132,7 @@ class Service {
             
             guard let url = URL(string: urlString) else {return}
             let headers = ["Content-Type": "application/json",
-                           "Authorization": accessToken, "User-Agent": userAgent]
+                           "Authorization": Service.accessToken, "User-Agent": userAgent]
 
             var request = URLRequest(url: url)
             request.httpMethod = "Get"
@@ -181,7 +181,7 @@ class Service {
         guard let object = object else {return}
         
         let headers = ["Content-Type": "application/json",
-                       "Authorization": accessToken, "User-Agent": userAgent]
+                       "Authorization": Service.accessToken, "User-Agent": userAgent]
         
         var request = URLRequest(url: url)
         request.httpMethod = "Put"
@@ -218,7 +218,7 @@ class Service {
         guard let object = object else {return}
         
         let headers = ["Content-Type": "application/json",
-                       "Authorization": accessToken, "User-Agent": userAgent]
+                       "Authorization": Service.accessToken, "User-Agent": userAgent]
         
         var request = URLRequest(url: url)
         request.httpMethod = "Post"
@@ -262,30 +262,30 @@ class Service {
             }
             
             if let resp = resp as? HTTPURLResponse {
-
                 guard (200 ... 299) ~= resp.statusCode else { // check for http errors
                     
-                    print("Status Code: \(resp.statusCode)")
+                    print("Failed Status Code: \(resp.statusCode)")
                     
                     completion(nil, resp, nil)
                     
                     if let respErr = data {
                         
-                        print(String(data: respErr, encoding: .utf8) ?? "")
+                        print("Error data: ", String(data: respErr, encoding: .utf8) ?? "")
                         
                     }
                     
                     return }
                 
+                print("Success - Status Code: ", resp.statusCode)
                 completion(nil, resp, nil)
+                
                 guard let data = data else {return}
                 
                 do {
                     
                     let object = try JSONDecoder().decode(RefreshToken.self, from: data)
-                    self.accessToken = "Bearer \(object.accessToken)"
-                    self.refreshToken = "Bearer \(object.refreshToken)"
-                    
+                    Service.accessToken = "Bearer \(object.accessToken)"
+                    self.refreshToken = "\(object.refreshToken)"
                     
                 } catch let jsonErr {
                     

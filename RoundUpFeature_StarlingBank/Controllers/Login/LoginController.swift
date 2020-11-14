@@ -104,25 +104,32 @@ class LoginController: UIViewController {
     @objc func handleRefreshToken() {
         
         activityIndicator.startAnimating()
+        loginButton.isEnabled = false
         refreshTokenButton.isEnabled = false
+        
+        var message: String = ""
         
         Service.shared.refreshToken { [weak self] (data, resp, err) in
             
-            guard let resp = resp else {return}
-            
-            guard (200 ... 299) ~= resp.statusCode else { // check for http errors
-                print("Status Code: \(resp.statusCode)")
-               
-            DispatchQueue.main.async {
-                self?.errorLabel.text = "Status Code: \(resp.statusCode)"
-                self?.activityIndicator.stopAnimating()
-                self?.refreshTokenButton.isEnabled = true
+            if let err = err {
+                message = "Failed to refresh token: \(err)"
             }
+            
+            guard let resp = resp else {return}
+               
+            if (200 ... 299) ~= resp.statusCode { // check for http errors
+                message = "Successfully refreshed Access Token"
+            } else {
+                message = "Status Code: \(resp.statusCode)"
+            }
+            
+        DispatchQueue.main.async {
+            self?.errorLabel.text = message
+            self?.activityIndicator.stopAnimating()
+            self?.refreshTokenButton.isEnabled = true
+            self?.loginButton.isEnabled = true
+        }
                 
-                return }
-            
-           print(resp)
-            
         } 
     }
 
@@ -133,7 +140,6 @@ class LoginController: UIViewController {
         Service.shared.fetchUserAccount(completion: { [weak self] (retreivedAccount, resp, err)  in
             
             if let err = err {
-                print("Failed to Login User: ",err)
                 DispatchQueue.main.async {
                 self?.errorLabel.text = "Failed to Login User: \(err)"
                 self?.activityIndicator.stopAnimating()
