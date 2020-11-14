@@ -12,28 +12,41 @@ class Service {
     
     static let shared = Service()
     
-    var accessToken = "Bearer xfuoBYwY4PJR0vYP3Ps2oxx1ocRGYXcLkefsXNAVk1g2vv0K8iBD2kTwJ6l3PnP4"
-    var refreshToken = "Bearer w0EEKweogoWrru7uKgAx2XKvjTc0R340iwuWdNPVAL2v4780xcalucwciZaupq15"
+    var accessToken = "Bearer eyJhbGciOiJQUzI1NiIsInppcCI6IkdaSVAifQ.H4sIAAAAAAAAAH1Uy5KbMBD8lS3Oqy0sBAZuueUH8gEjaWSrDBIlCSdbqfx7BBLGOFu5ubvn0TMj_LvQ3hd9AZMmEkf74QO4QZsLB3P7EHYs3gs_8xhxEkLS6sxjGJeElfxEuqZGwpgUJ96BqpSKwfhrKvpTU9bsTGnN3gsNIRFVW7cLAULY2YTvdpDofmgZazPJzlycS8KaqiEMkJGuLgVBSoHVSrZth7F2sDc0OaNmWFFaEgpAoxvGSVdGcyg5VVUn-amhMSOO9U0I9D5lVW3FKDu1pFJNFfuwirRdTUlVNhWnoFijzsvAwk64LCU5JdfVKjEwYu8Q5NuLED6nF0FLNEErje7ID9qHA5OBlC6a7FHq8ABJCQHEdcRH5I5_Oh3wDeZwtU77eDKijdR3LWcYUjCHAYzI1gQ4SYQ1wdkhNVqYrFmjtBshaGuIVUTNRvqH5B_dN5Bai9kHO24j4gg6Fx4wGjGXHqZp-HygNWoEIyFgL3HAWGKDWXM3DMsgk0OFDqN3_z8p2UjaNIDAuIGAF7fO8Zz4r5hT0YkrbNONGCC6gV5EuKoZr0NN8Im4SQnkIRLYg4ge4ZJnStr-kwQHxoPYHUaa8Hm49dslcaf2bgnvDRN-FBisiEd_Cl8JYpfrv7I5y1mlh81rMn-g1iiHAvUUDsAfpbRJD_d4HU8udvdx4LL1A7fWeWbSduJ9vyqxi1_U2sVUVFxRzgNKEsfevx6PIcQB5ynDCbavI_7tra-UWCef2h_Zre-R3fIDLo2I8PdXapIqUzP3wsWtLdffqj1za9TzE1kP8_pmij9_AcsyE6O3BQAA.Af_7pClPK6SYlERkgYMwC71GlhQri79mo8sxn9POP6RdWrfrlXz1S6IRjI-4x9u9sHl_PDX8xRPiSLg8uYjdFxeMe0iVLbea88VIKOUX9SPiAOw5R7JsXrR439VN5D_X2QnXurFgj4dwzbGAT0kGoUwNNf2uS2mBbmWztCoxg3uoPsWXLQTcYTOQWzBso7wv4p95agCTSvY80j2wuM0_9hILYSdynLsAhnXjXNXT041GyNQ9ieeiI5MvRto0-Smx-cwjQjbCGtCHlPIFuRqosbnSTQfL-IEMgVk2V7Q7qXWXDk6rg6lgBvxCX5uZibR1_aPfDgYyMOXoN21tlcLc9fkN1n42q_lnxInYnWDcw7AqCfzZV4sq3tnsgb7_oMLH3o4aaCqEJoSHm6VubvU9INzjozWZi2C34rvRpnxwp7NyBf89zRLy0KikhOY5mDqJ-sgopRmsR_8gPL8zzq4u6-Q-cSMYC3vkktsYDFkpRz5-WoNZV8-HrWBNc39sViSp4SzzOBibiqjd5N_rpdR7tbcsViy9NGDUZW6KTnDCUYdyDCumXgG6Wj19S0-W3YBvMUeVS19Bx72f7OLu-b2oEPKPAt0SsVxAeAMZBNMKqj-pDpPl7LiGsVZ9TX8cVGFifSdGsHdaHpXRY4VhLM0_0Fi6av5-r2h-KKQ5z_mMR3E"
+    var refreshToken = "Bearer OY3R8aldgvYOvOyGhxpmszm1nCWLqLRD1ycP2xGlDOQdjOlSZDdRhQ9t1kCXxypk"
     let userAgent = "Muhammad Shahrukh"
-    let clientId = "udPqv6TYYrJrXVlM3b8U"
-    let clientSecret = "RjjEVEhzmlV1SWGpYGixyPXN2kSEvoxYbSsi48Fe"
+    let clientId = "hHImUzRJiynSMpSEvCVe"
+    let clientSecret = "tqmYxumZRsdKuA6SnP4ZVsHaTctcnw70btrdscXp"
     
     // MARK:- Refresh Token Method
     func refreshToken(completion: @escaping (Data?, HTTPURLResponse?, Error?)->()) {
-        
-        print("access token: \(accessToken)")
-        
-        let urlString = "https://api.starlingbank.com/oauth/access-token"
+                
+        let urlString = "https://api-sandbox.starlingbank.com/oauth/access-token"
         guard let url = URL(string: urlString) else {return}
         
         let headers = ["Content-Type": "application/x-www-form-urlencoded"]
         
         let data : Data = "refresh_token=\(refreshToken)&client_id=\(clientId)&client_secret=\(clientSecret)&grant_type=refresh_token".data(using: .utf8)!
         
-        var request = URLRequest(url: url, cachePolicy: .useProtocolCachePolicy, timeoutInterval: 10.0)
+        var request = URLRequest(url: url)
         request.httpMethod = "Post"
         request.allHTTPHeaderFields = headers
         request.httpBody = data
+
+        /**
+         You cannot send json data when the endpoint accepts x-www-form-urlencoded
+         */
+//        let body = [
+//             "grant_type": "refresh_token",
+//             "client_secret": clientSecret,
+//             "client_id": clientId,
+//             "refresh_token": refreshToken
+//           ]
+//        do {
+//        request.httpBody = try JSONEncoder().encode(body)
+//        } catch {
+//            print("failed to encode object to json: ",error)
+//        }
         
         generalAPICall(request: request, completion: completion)
         
@@ -45,7 +58,6 @@ class Service {
             let urlString = "https://api-sandbox.starlingbank.com/api/v2/accounts"
             
             genericGetAPICall(urlString: urlString, completion: completion)
-            
         }
     
     func fetchUserAccountDetails(uid: String?, completion: @escaping (AccountDetails?, URLResponse?, Error?) -> () ) {
@@ -86,7 +98,33 @@ class Service {
         
         genericGetAPICall(urlString: urlString, completion: completion)
     }
+    
+    func transferFundstoSavingGoal(uid: String?, goalUid: String?, amount: Amount?, completion: @escaping (HTTPURLResponse?,Error?) -> ()) {
+        
+        guard let uid = uid else {return}
+        guard let goalUid = goalUid else {return}
+        let transferUid = UUID().uuidString
+        
+        guard let amount = amount else {return}
+        let fundTransfer = FundTransfer(amount: amount)
+        
+        let urlString = "https://api-sandbox.starlingbank.com/api/v2/account/\(uid)/savings-goals/\(goalUid)/add-money/\(transferUid)"
+        
+        genericPutAPICall(urlString: urlString, object: fundTransfer, completion: completion)
+        
+    }
 
+    
+    func createNewSavingGoal(uid: String?, newGoal: NewGoal?, completion: @escaping(HTTPURLResponse?, Error?) -> ()) {
+        
+        guard let uid = uid else {return}
+        guard let newGoal = newGoal else {return}
+        
+        let urlString = "https://api-sandbox.starlingbank.com/api/v2/account/\(uid)/savings-goals"
+        
+        genericPutAPICall(urlString: urlString, object: newGoal, completion: completion)
+    }
+    
     // MARK:- Generic "GET" API Call that returns a decodable object of type T
         func genericGetAPICall<T: Decodable> (urlString: String, completion: @escaping (T?, URLResponse?, Error?) -> ()) {
             
@@ -134,35 +172,7 @@ class Service {
                 }
                 
                 }.resume() // fires off the request
-            
         }
-    
-    func transferFundstoSavingGoal(uid: String?, goalUid: String?, amount: Amount?, completion: @escaping (HTTPURLResponse?,Error?) -> ()) {
-        
-        guard let uid = uid else {return}
-        guard let goalUid = goalUid else {return}
-        let transferUid = UUID().uuidString
-        
-        guard let amount = amount else {return}
-        let fundTransfer = FundTransfer(amount: amount)
-        
-        let urlString = "https://api-sandbox.starlingbank.com/api/v2/account/\(uid)/savings-goals/\(goalUid)/add-money/\(transferUid)"
-        
-        genericPutAPICall(urlString: urlString, object: fundTransfer, completion: completion)
-        
-    }
-
-    
-    func createNewSavingGoal(uid: String?, newGoal: NewGoal?, completion: @escaping(HTTPURLResponse?, Error?) -> ()) {
-        
-        guard let uid = uid else {return}
-        guard let newGoal = newGoal else {return}
-        
-        let urlString = "https://api-sandbox.starlingbank.com/api/v2/account/\(uid)/savings-goals"
-        
-        genericPutAPICall(urlString: urlString, object: newGoal, completion: completion)
-        
-    }
     
     func genericPutAPICall<T: Encodable> (urlString: String?, object: T?, completion: @escaping (HTTPURLResponse?, Error?)->()){
         
@@ -199,7 +209,43 @@ class Service {
             }
             
             }.resume()
+    }
+    
+    func genericPostAPICall<T: Encodable> (urlString: String?, object: T?, completion: @escaping (HTTPURLResponse?, Error?)->()){
         
+        guard let urlString = urlString else {return}
+        guard let url = URL(string: urlString) else {return}
+        guard let object = object else {return}
+        
+        let headers = ["Content-Type": "application/json",
+                       "Authorization": accessToken, "User-Agent": userAgent]
+        
+        var request = URLRequest(url: url)
+        request.httpMethod = "Post"
+        request.allHTTPHeaderFields = headers
+        
+        do {
+            let httpBody = try JSONEncoder().encode(object)
+            request.httpBody = httpBody
+        } catch {
+            print("failed to encode object to json: ",error)
+        }
+        
+        let session = URLSession(configuration: URLSessionConfiguration.default)
+        session.dataTask(with: request) { (data, resp, err) in
+            
+            if let err = err {
+                //print(err)
+                completion(nil,err)
+                return
+            }
+            
+            if let resp = resp as? HTTPURLResponse {
+                //print(resp)
+                completion(resp,nil)
+            }
+            
+            }.resume()
     }
     
     
@@ -247,157 +293,12 @@ class Service {
                     
                 }
             }
-            
             }.resume()
         
     }
-    
+
 }
-
-    
-    // MARK: Extra functions for refreshing the token
- /*
-    func refreshAccessToken() {
-        
-        let urlString = "https://api.starlingbank.com/oauth/access-token"
-        guard let url = URL(string: urlString) else {return}
-        
-        let headers = ["Content-Type": "application/x-www-form-urlencoded"]
-        
-        let headers2 = ["Accept" : "application/json", "Content-Type": "application/x-www-form-urlencoded",
-                       "Authorization": accessToken, "User-Agent": userAgent]
-        
-        let parameters: [String: Any] = [
-            
-            "refresh_token": refreshToken,
-            "client_id": clientId,
-            "client_secret": clientSecret,
-            "grant_type":  "refresh_token"
-            
-        ]
-        
-        let postData = NSMutableData(data: "refresh_token=\(refreshToken)".data(using: .utf8)!)
-        postData.append("&client_id=\(clientId)".data(using: .utf8)!)
-        postData.append("&client_secret=\(clientSecret)".data(using: .utf8)!)
-        postData.append("&grant_type=refresh_token".data(using: .utf8)!)
-        
-        let data : Data = "refresh_token=\(refreshToken)&client_id=\(clientId)&client_secret=\(clientSecret)&grant_type=refresh_token".data(using: .utf8)!
-        
-        var request = URLRequest(url: url, cachePolicy: .useProtocolCachePolicy, timeoutInterval: 10.0)
-        request.httpMethod = "Post"
-        request.allHTTPHeaderFields = headers
-        request.httpBody = Data(data)
-        
-        /*
-        do {
-            request.httpBody = try JSONSerialization.data(withJSONObject: parameters, options: [.prettyPrinted]) // pass dictionary to nsdata object and set it as request body
-            print("successfully encoded to json")
-        } catch let error {
-            print("Failed to encode Parameters to Json",error.localizedDescription)
-        }*/
-        
-        let session = URLSession.shared
-        let dataTask = session.dataTask(with: request) { (data, resp, err) in
-            
-            if let resp = resp as? HTTPURLResponse  {
-                
-                guard (200 ... 299) ~= resp.statusCode else { // check for http errors
-                    
-                    print("Status Code: \(resp.statusCode)")
-                    
-                
-                if let respErr = data {
-                    
-                    print(String(data: respErr, encoding: .utf8) ?? "")
-                    
-                    }
-                    
-                    return }
-                
-                guard let data = data else {return}
-                    
-                    do {
-                        
-                        let object = try JSONDecoder().decode(RefreshToken.self, from: data)
-                        self.accessToken = "Bearer \(object.accessToken)"
-                        self.refreshToken = "Bearer \(object.refreshToken)"
-                        
-                        
-                    } catch let jsonErr {
-                        
-                        print("failed to decode json data",jsonErr)
-                        
-                    }
-                }
-                
-                
-        }; dataTask.resume()
-        }
     
     
-    // MARK:- Final Method for refresh access token
-    func finalRefreshToken() {
-        
-        guard let url = URL(string: "https://api.starlingbank.com/oauth/access-token") else {
-            return
-        }
     
-        let data : Data = "refresh_token=\(refreshToken)&client_id=\(clientId)&client_secret=\(clientSecret)&grant_type=refresh_token".data(using: .utf8)!
-        
-        var request : URLRequest = URLRequest(url: url)
-        request.httpMethod = "POST"
-        request.setValue("application/x-www-form-urlencoded", forHTTPHeaderField:"Content-Type");
-        request.setValue(NSLocalizedString("lang", comment: ""), forHTTPHeaderField:"Accept-Language");
-        request.httpBody = data
-        
-        print("one called")
-        
-        let config = URLSessionConfiguration.default
-        let session = URLSession(configuration: config)
-        // vs let session = URLSession.shared
-        // make the request
-        let task = session.dataTask(with: request, completionHandler: {
-            (data, response, error) in
-            
-            if let error = error
-            {
-                print(error)
-            }
-            else if let response = response {
-                print("her in resposne")
-                
-            }else if let data = data
-            {
-                print("here in data")
-                print(data)
-            }
-            
-            DispatchQueue.main.async { // Correct
-                
-                guard let responseData = data else {
-                    print("Error: did not receive data")
-                    return
-                }
-                
-                let decoder = JSONDecoder()
-                print(String(data: responseData, encoding: .utf8))
-                do {
-                    //  let todo = try decoder.decode(T.self, from: responseData)
-                    //  NSAssertionHandler(.success(todo))
-                } catch {
-                    print("error trying to convert data to JSON")
-                    //print(error)
-                    //  NSAssertionHandler(.failure(error))
-                }
-            }
-        })
-        
-        task.resume()
-    
-    } */
-
-
-
-
-
 
