@@ -1,4 +1,4 @@
-# Starling Bank - Savings App
+# Savings App
 ### Round Up Feature for Starling Bank 
 
 ![alt text](https://user-images.githubusercontent.com/30627907/60704917-b01b3b80-9efd-11e9-9a38-5bba60c8085f.jpeg)
