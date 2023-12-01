@@ -14,9 +14,9 @@ class Service {
     
     static var accessToken = ""
     var refreshToken = ""
-    let userAgent = "Muhammad Shahrukh"
-    let clientId = "hHImUzRJiynSMpSEvCVe"
-    let clientSecret = "tqmYxumZRsdKuA6SnP4ZVsHaTctcnw70btrdscXp"
+    let userAgent = "USER_AGENT"
+    let clientId = "CLIENT_ID"
+    let clientSecret = "CLIENT_SECRET"
     
     // MARK:- Refresh Token Method
     func refreshToken(completion: @escaping (Data?, HTTPURLResponse?, Error?)->()) {
