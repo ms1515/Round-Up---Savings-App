@@ -1,5 +1,5 @@
 # Savings App
-### Round Up Feature for Starling Bank 
+### Round Up Feature for Mobile Banking 
 
 ![alt text](https://user-images.githubusercontent.com/30627907/60704917-b01b3b80-9efd-11e9-9a38-5bba60c8085f.jpeg)
 
