@@ -34,7 +34,7 @@ class Service {
         request.httpBody = data
 
         /**
-         You cannot send json data when the endpoint accepts x-www-form-urlencoded
+         You cannot send json encoded data when the endpoint accepts x-www-form-urlencoded
          */
 //        let body = [
 //             "grant_type": "refresh_token",
